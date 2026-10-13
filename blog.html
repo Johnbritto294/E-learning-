@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog - EduNext</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    
+    html {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-text-size-adjust: 100%;
+      touch-action: pan-y;
+    }
+body {
+      overflow-x: hidden;
+      overflow-x: clip;
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+
+      background-color: #ffffff;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+
+    html.menu-locked {
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      width: 100%;
+    }
+
+    .navbar {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      height: 86px;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .navbar__logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .navbar__logo img {
+      width: 210px;
+      height: 70px;
+      opacity: 1;
+      transform: none;
+      display: block;
+    }
+
+    .navbar__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 9px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .navbar__toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: #111827;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        --navbar-h: 68px;
+        flex-wrap: nowrap;
+        height: var(--navbar-h);
+        min-height: var(--navbar-h);
+        padding: 12px 20px;
+      }
+
+      .navbar__logo img {
+        width: 156px;
+        height: 52px;
+      }
+
+      .navbar__toggle {
+        display: flex;
+      }
+
+      .navbar .navbar__menu {
+        display: none;
+      }
+
+      .navbar.menu-open .navbar__menu {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        height: calc(100vh - var(--navbar-h));
+        height: calc(100dvh - var(--navbar-h));
+        padding: 16px 20px 24px;
+        background: #ffffff;
+        border-top: 1px solid #f1f5f9;
+        box-shadow: 0 24px 48px rgba(15, 23, 42, 0.14);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        z-index: 1001;
+      }
+
+      .navbar.menu-open .navbar__links {
+        display: flex;
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+
+      .navbar.menu-open .navbar__links li,
+      .navbar.menu-open .navbar__links a {
+        display: block;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__links a {
+        padding: 14px 0;
+        font-size: 16px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .navbar.menu-open .navbar__right {
+        display: flex;
+        order: 4;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 18px 0 4px;
+        margin-top: 4px;
+      }
+
+      .navbar.menu-open .navbar__right .navbar__search {
+        display: flex;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right .navbar__search input {
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right > a {
+        display: block;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right .btn-login,
+      .navbar.menu-open .navbar__right .btn-signup {
+        width: 100%;
+        padding: 12px 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        --navbar-h: 62px;
+      }
+
+      .navbar__logo img {
+        width: 138px;
+        height: 46px;
+      }
+    }
+
+    .navbar__menu {
+      display: contents;
+    }
+
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .navbar__links a {
+      text-decoration: none;
+      color: #334155;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .navbar__links a:hover,
+    .navbar__links a.active {
+      color: #0066ff;
+    }
+
+    .navbar__links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #0066ff;
+      border-radius: 2px;
+    }
+
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .navbar__search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar__search input {
+      padding: 8px 16px 8px 36px;
+      border: 1px solid #e2e8f0;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      outline: none;
+      width: 220px;
+      transition: all 0.2s;
+      background: #f8fafc;
+    }
+
+    .navbar__search input:focus {
+      border-color: #0066ff;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+    }
+
+    .navbar__search svg {
+      position: absolute;
+      left: 12px;
+      color: #94a3b8;
+    }
+
+    .btn-login {
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0066ff;
+      background: transparent;
+      border: 1px solid #0066ff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-login:hover {
+      background: rgba(0, 102, 255, 0.05);
+    }
+
+    .btn-signup {
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: #0066ff;
+      border: 1px solid #0066ff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-signup:hover {
+      background: #0052cc;
+      border-color: #0052cc;
+    }
+
+    /* ===== BLOG HERO SECTION ===== */
+    .blog-hero-wrapper {
+      background-color: #eef6fe;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .blog-hero {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      min-height: 460px;
+    }
+
+    .blog-hero__content {
+      flex: 1.1;
+      max-width: 530px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    /* Breadcrumbs */
+    .blog-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .blog-breadcrumbs a {
+      color: #0066ff;
+      text-decoration: none;
+      transition: text-decoration 0.2s;
+    }
+
+    .blog-breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+
+    .blog-breadcrumbs .separator {
+      color: #0066ff;
+      font-size: 12px;
+    }
+
+    .blog-breadcrumbs .current {
+      color: #0066ff;
+    }
+
+    /* Tagline */
+    .blog-tagline {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0066ff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    /* Main Heading */
+    .blog-heading {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #0f172a;
+      margin-bottom: 22px;
+      letter-spacing: -0.6px;
+    }
+
+    .blog-heading span {
+      color: #0066ff;
+    }
+
+    /* Description */
+    .blog-description {
+      font-size: 14.5px;
+      line-height: 1.62;
+      color: #334155;
+      margin-bottom: 30px;
+      max-width: 440px;
+    }
+
+    /* CTA Button */
+    .btn-blog-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      padding: 12px 24px;
+      background: #0066ff;
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 600;
+      border: 1px solid #0066ff;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      width: fit-content;
+    }
+
+    .btn-blog-explore:hover {
+      background: #0052cc;
+      border-color: #0052cc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+    }
+
+    /* Hero Right Image */
+    .blog-hero__image {
+      flex: 1.35;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      min-width: 0;
+      align-self: flex-end;
+    }
+
+    .blog-hero__image img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: bottom right;
+      vertical-align: bottom;
+      margin-bottom: 0;
+    }
+
+    /* ===== FOOTER SECTION ===== */
+    .footer {
+      background: #091e3e;
+      color: #94a3b8;
+      width: 100%;
+      padding: 70px 0 30px;
+    }
+
+    .footer-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr 1fr 1.6fr;
+      gap: 48px;
+      margin-bottom: 55px;
+    }
+
+    /* Brand Column */
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-tagline {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #94a3b8;
+      max-width: 280px;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .social-icon-btn:hover {
+      background: #0066ff;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .social-icon-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Footer Navigation Columns */
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 22px;
+      letter-spacing: -0.2px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #38bdf8;
+      transform: translateX(3px);
+    }
+
+    .footer-links .link-arrow {
+      color: #0066ff;
+      font-size: 11px;
+    }
+
+    /* Newsletter Form */
+    .footer-newsletter p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #94a3b8;
+      margin-bottom: 18px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 4px;
+      transition: border-color 0.2s;
+    }
+
+    .newsletter-form:focus-within {
+      border-color: #0066ff;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 8px 12px;
+      color: #ffffff;
+      font-size: 13px;
+    }
+
+    .newsletter-form input::placeholder {
+      color: #64748b;
+    }
+
+    .newsletter-btn {
+      background: #0066ff;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .newsletter-btn:hover {
+      background: #0052cc;
+    }
+
+    .newsletter-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Footer Bottom Row */
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: #94a3b8;
+    }
+
+    .footer-legal {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-legal a:hover {
+      color: #ffffff;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .navbar {
+        padding: 14px 24px;
+      }
+
+      .navbar__links {
+        gap: 20px;
+      }
+
+      .navbar__search {
+        min-width: 180px;
+      }
+
+      .blog-hero {
+        padding: 40px 24px 0;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .blog-hero__content {
+        text-align: center;
+        max-width: 600px;
+        align-items: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }
+
+      .blog-breadcrumbs {
+        justify-content: center;
+      }
+
+      .blog-hero__image {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .blog-hero__image img {
+        max-width: 540px;
+      }
+
+      .footer-main {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar__links {
+        display: none;
+      }
+
+      .navbar__search {
+        display: none;
+      }
+
+      .blog-heading {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar {
+        padding: 12px 16px;
+      }
+
+      .blog-hero {
+        padding: 28px 16px 0;
+      }
+
+      .blog-heading {
+        font-size: 27px;
+      }
+
+      .blog-description {
+        font-size: 13.5px;
+      }
+
+      .footer {
+        padding: 50px 0 25px;
+      }
+
+      .footer-container {
+        padding: 0 20px;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+
+    /* ===== FEATURED BLOG POSTS SECTION ===== */
+    .blog-posts-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 80px 0 95px;
+    }
+
+    .blog-posts-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .blog-posts-header {
+      margin-bottom: 45px;
+    }
+
+    .blog-posts-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0066ff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .blog-posts-title {
+      font-size: 38px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .blog-posts-desc {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #475569;
+      max-width: 520px;
+    }
+
+    .blog-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .blog-post-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .blog-post-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      border-color: #0066ff;
+    }
+
+    .blog-post-thumb {
+      position: relative;
+      width: 100%;
+      height: 215px;
+      overflow: hidden;
+      background: #f1f5f9;
+    }
+
+    .blog-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .blog-post-card:hover .blog-post-thumb img {
+      transform: scale(1.04);
+    }
+
+    .blog-category-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: #0066ff;
+      color: #ffffff;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 6px;
+      z-index: 2;
+      box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3);
+    }
+
+    .blog-post-content {
+      padding: 22px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .blog-post-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      margin-bottom: 12px;
+    }
+
+    .blog-post-heading a {
+      color: #0f172a;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .blog-post-heading a:hover {
+      color: #0066ff;
+    }
+
+    .blog-post-excerpt {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #475569;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+
+    .blog-post-footer {
+      border-top: 1px solid #f1f5f9;
+      padding-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .blog-author-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .blog-author-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #e2e8f0;
+    }
+
+    .blog-author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .blog-author-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-author-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .blog-author-role {
+      font-size: 11.5px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .blog-post-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+    }
+
+    .blog-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .blog-meta-item svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* Blog Newsletter Banner */
+    .blog-newsletter-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 0 0 95px;
+    }
+
+    .blog-newsletter-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .blog-newsletter-banner {
+      background: linear-gradient(135deg, #0a3d8f 0%, #0047b3 50%, #005ce6 100%);
+      border-radius: 14px;
+      padding: 38px 45px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 71, 179, 0.2);
+    }
+
+    .blog-newsletter-banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .blog-newsletter-left {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      z-index: 1;
+    }
+
+    .blog-newsletter-cap-wrap {
+      width: 68px;
+      height: 68px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blog-newsletter-cap-wrap img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+    }
+
+    .blog-newsletter-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .blog-newsletter-heading {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    .blog-newsletter-sub {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 13.5px;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .blog-newsletter-right {
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .blog-newsletter-form {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 5px 5px 5px 16px;
+      width: 380px;
+      max-width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-newsletter-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 13.5px;
+      color: #0f172a;
+      background: transparent;
+      padding: 8px 4px;
+      font-family: inherit;
+    }
+
+    .blog-newsletter-input::placeholder {
+      color: #64748b;
+    }
+
+    .blog-newsletter-submit {
+      background: #0066ff;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .blog-newsletter-submit:hover {
+      background: #0052cc;
+      transform: translateX(1px);
+    }
+
+    .blog-newsletter-submit svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Responsive for Featured Blog Posts */
+    @media (max-width: 1024px) {
+      .blog-posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .blog-newsletter-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 32px 30px;
+        gap: 24px;
+      }
+
+      .blog-newsletter-right {
+        width: 100%;
+      }
+
+      .blog-newsletter-form {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .blog-posts-section {
+        padding: 55px 0 40px;
+      }
+
+      .blog-newsletter-section {
+        padding: 0 0 60px;
+      }
+
+      .blog-posts-title {
+        font-size: 30px;
+      }
+
+      .blog-posts-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .blog-newsletter-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .blog-newsletter-heading {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .blog-posts-container,
+      .blog-newsletter-container {
+        padding: 0 20px;
+      }
+
+      .blog-posts-title {
+        font-size: 26px;
+      }
+
+      .blog-newsletter-banner {
+        padding: 26px 20px;
+      }
+
+      .blog-newsletter-form {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .blog-newsletter-input {
+        width: 100%;
+        padding: 6px 4px;
+      }
+
+      .blog-newsletter-submit {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+<style>
+/* ===== PREMIUM SCROLL (reveals / parallax) ===== */
+html { scroll-behavior: smooth; }
+
+.psr-anim {
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-anim.psr-img {
+  transition: opacity .9s cubic-bezier(.22, 1, .36, 1), transform 1.1s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-hide {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+}
+.psr-img.psr-hide {
+  transform: scale(1.06);
+}
+
+.psr-hero > * {
+  transition: opacity .75s cubic-bezier(.22, 1, .36, 1), transform .75s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-hero.psr-hide > * {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.psr-par { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .psr-anim, .psr-hero > * { transition: none !important; }
+  .psr-hide, .psr-hero.psr-hide > * { opacity: 1 !important; transform: none !important; }
+  .psr-par { will-change: auto; }
+}
+</style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <div class="navbar-wrapper">
+    <nav class="navbar">
+      <div class="navbar__logo">
+        <a href="index.html">
+          <img src="images/305454e6d60d6ab9bc238ee3266769bbb336f82f.webp" alt="Stackly" />
+        </a>
+      </div>
+
+      <div class="navbar__menu">
+        <ul class="navbar__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+          <li><a href="instructors.html">Instructors</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <div class="navbar__right">
+          <div class="navbar__search">
+            <input type="text" placeholder="Search for products, farmers..." onkeydown="if(event.key==='Enter'){window.location.href='404.html';}" />
+            <a href="404.html" aria-label="Search" style="display:inline-flex;align-items:center;color:inherit;text-decoration:none;cursor:pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg></a>
+          </div>
+          <a href="login.html" style="text-decoration:none;"><button class="btn-login">Login</button></a>
+          <a href="signup.html" style="text-decoration:none;"><button class="btn-signup">Sign Up</button></a>
+        </div>
+      </div>
+
+      <button class="navbar__toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ===== BLOG HERO SECTION ===== -->
+  <div class="blog-hero-wrapper">
+    <section class="blog-hero">
+      <div class="blog-hero__content">
+        <!-- Breadcrumbs -->
+        <div class="blog-breadcrumbs">
+          <a href="index.html">Home</a>
+          <span class="separator">&gt;</span>
+          <span class="current">Blog</span>
+        </div>
+
+        <div class="blog-tagline">OUR BLOG</div>
+
+        <h1 class="blog-heading">
+          Insights, Tips &amp; Resources<br />for a <span>Better Learning Journey</span>
+        </h1>
+
+        <p class="blog-description">
+          Explore our latest articles, study tips, career advice and educational insights to help you learn, grow and achieve your goals.
+        </p>
+
+        <a href="404.html" class="btn-blog-explore">Explore All Articles &rarr;</a>
+      </div>
+
+      <!-- Hero Right Image -->
+      <div class="blog-hero__image">
+        <img src="images/blog_hero_aligned.webp" alt="Student studying with notebook and laptop - Ideas to Learn" />
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== FEATURED BLOG POSTS SECTION ===== -->
+  <section class="blog-posts-section" id="articles">
+    <div class="blog-posts-container">
+      <div class="blog-posts-header">
+        <span class="blog-posts-tag">LATEST ARTICLES</span>
+        <h2 class="blog-posts-title">Featured Blog Posts</h2>
+        <p class="blog-posts-desc">
+          Discover helpful articles, learning strategies and expert advice from our education community.
+        </p>
+      </div>
+
+      <div class="blog-posts-grid">
+        <!-- Card 1: 10 Effective Study Habits -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Study Tips</span>
+            <img src="images/60df813c3d3182b3247eed11af7e57b0eec7b66b.webp" alt="10 Effective Study Habits for Better Results" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">10 Effective Study Habits for Better Results</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              Good study habits can make a huge difference in your learning journey. Here are 10 practical tips to help you stay focused, productive and achieve...
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/9bc6ada6946eb1f8d750aa49be11f5b2b3522b99.webp" alt="Priya Sharma" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Priya Sharma</span>
+                  <span class="blog-author-role">Education Expert</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 20, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  5 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: Top 5 In-Demand Careers -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Career Guidance</span>
+            <img src="images/d823fb3a6ea33be9dbf432ebd556537c4f79ffae.webp" alt="Top 5 In-Demand Careers in 2025" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">Top 5 In-Demand Careers in 2025</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              The job market is evolving, and new opportunities are emerging every year. Here are the top 5 in-demand careers in 2025 that offer great growth...
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/2c8f29ba69233c9151e3af8ad53c6fa82752a90c.webp" alt="Amit Verma" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Amit Verma</span>
+                  <span class="blog-author-role">Career Coach</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 18, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  6 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: The Benefits of Online Learning -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Online Learning</span>
+            <img src="images/dca2730a9e39d96e981ab990bad53da0071a5112.webp" alt="The Benefits of Online Learning" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">The Benefits of Online Learning</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              Online learning offers flexibility, affordability and access to world-class resources. Learn how it can help you achieve your educational goals...
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/f8f84b40f1055b095ffd80fc238bb439cd10e43f.webp" alt="Neha Kapoor" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Neha Kapoor</span>
+                  <span class="blog-author-role">Learning Specialist</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 15, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  4 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: How to Prepare for Competitive Exams -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Education News</span>
+            <img src="images/467d86a06b5730c419c275d0c4328c668d146124.webp" alt="How to Prepare for Competitive Exams" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">How to Prepare for Competitive Exams</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              Competitive exams can be challenging, but with the right strategy and consistent effort, you can crack them. Here are proven tips to help you prepare...
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/84c5e6009a6fd8e995680aee9fd54757e6023694.webp" alt="Rohit Mehta" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Rohit Mehta</span>
+                  <span class="blog-author-role">Exam Specialist</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 12, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  5 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: Building a Strong Resume for Your Dream Job -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Career Guidance</span>
+            <img src="images/0b9125537cddbe297921eddde61f287d3a3e8a17.webp" alt="Building a Strong Resume for Your Dream Job" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">Building a Strong Resume for Your Dream Job</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              Your resume is your first impression. Learn how to create a professional resume that stands out and gets you noticed by top employers
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/fd10aa6e7a6a2a59ac1fe26378fc35f97f517799.webp" alt="Ananya Reddy" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Ananya Reddy</span>
+                  <span class="blog-author-role">Career Coach</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 10, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  4 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6: Balancing Study, Life and Personal Growth -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Student Life</span>
+            <img src="images/dca2730a9e39d96e981ab990bad53da0071a5112.webp" alt="Balancing Study, Life and Personal Growth" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">Balancing Study, Life and Personal Growth</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              It's not just about studying — it's also important to take care of your mental health, build new skills and enjoy the journey. Here's how to find the right balance.
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/dab8e1abc758a3518dd45cfef6ced22c59cafb64.webp" alt="Karthik N" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Karthik N</span>
+                  <span class="blog-author-role">Education Blogger</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 08, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  3 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 7: Best Free Tools for Online Learning -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Technology</span>
+            <img src="images/c1001f4156be6d1ef07b1398fe315207e8e4cb33.webp" alt="Best Free Tools for Online Learning" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">Best Free Tools for Online Learning</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              Explore the best free tools and platforms that can help you learn new skills, organize your studies and stay productive — all in one place.
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/blog_author_sneha.webp" alt="Sneha Patel" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Sneha Patel</span>
+                  <span class="blog-author-role">Tech Educator</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 14, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  5 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 8: Stay Motivated During Your Learning Journey -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Motivation</span>
+            <img src="images/9c16575f6e18cc0969a1309a9dc6935bdfa50a88.webp" alt="Stay Motivated During Your Learning Journey" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">Stay Motivated During Your Learning Journey</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              Staying motivated isn't always easy. Here are simple but effective ways to keep your energy high and stay focused on your goals.
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/blog_author_vikram.webp" alt="Vikram Singh" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Vikram Singh</span>
+                  <span class="blog-author-role">Life Coach</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 15, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  4 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 9: Top 10 Tips to Ace Your Exams -->
+        <article class="blog-post-card">
+          <div class="blog-post-thumb">
+            <span class="blog-category-badge">Exam Tips</span>
+            <img src="images/blog_top_10_tips_exams.webp" alt="Top 10 Tips to Ace Your Exams" />
+          </div>
+          <div class="blog-post-content">
+            <h3 class="blog-post-heading">
+              <a href="#">Top 10 Tips to Ace Your Exams</a>
+            </h3>
+            <p class="blog-post-excerpt">
+              From time management to revision techniques, these 10 proven tips will help you perform better and achieve your academic goals.
+            </p>
+            <div class="blog-post-footer">
+              <div class="blog-author-info">
+                <div class="blog-author-avatar">
+                  <img src="images/blog_author_pooja.webp" alt="Pooja Nair" />
+                </div>
+                <div class="blog-author-meta">
+                  <span class="blog-author-name">Pooja Nair</span>
+                  <span class="blog-author-role">Study Coach</span>
+                </div>
+              </div>
+              <div class="blog-post-meta">
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  May 16, 2025
+                </span>
+                <span class="blog-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  7 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG NEWSLETTER BANNER SECTION ===== -->
+  <section class="blog-newsletter-section">
+    <div class="blog-newsletter-container">
+      <div class="blog-newsletter-banner">
+        <div class="blog-newsletter-left">
+          <div class="blog-newsletter-cap-wrap">
+            <img src="images/cap_transparent.webp" alt="Graduation Cap" />
+          </div>
+          <div class="blog-newsletter-text">
+            <h3 class="blog-newsletter-heading">Stay Updated with Our Latest Blogs</h3>
+            <p class="blog-newsletter-sub">Get the latest articles, tips and learning resources delivered to your inbox.</p>
+          </div>
+        </div>
+        <div class="blog-newsletter-right">
+          <form class="blog-newsletter-form" onsubmit="event.preventDefault(); handleBlogSubscribe(this);">
+            <input type="email" class="blog-newsletter-input" placeholder="Enter your email address" required />
+            <button type="submit" class="blog-newsletter-submit">
+              Subscribe &rarr;
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER SECTION ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-main">
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <a href="index.html">
+              <img src="images/305454e6d60d6ab9bc238ee3266769bbb336f82f.webp" alt="Stackly" />
+            </a>
+          </div>
+          <p class="footer-tagline">
+            Connecting farmers and consumers for a healthier and greener tomorrow.
+          </p>
+          <div class="footer-socials">
+            <!-- Facebook -->
+            <a href="404.html" class="social-icon-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.52-.14-2.71-.14-2.73 0-4.79 1.66-4.79 4.8v2.7H7.5v4H10V22h4v-8.5z"/></svg>
+            </a>
+            <!-- Twitter / X -->
+            <a href="404.html" class="social-icon-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="404.html" class="social-icon-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <!-- YouTube -->
+            <a href="404.html" class="social-icon-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><span class="link-arrow">&gt;</span> Home</a></li>
+            <li><a href="about.html"><span class="link-arrow">&gt;</span> About Us</a></li>
+            <li><a href="services.html"><span class="link-arrow">&gt;</span> Services</a></li>
+            <li><a href="blog.html"><span class="link-arrow">&gt;</span> Blog</a></li>
+            <li><a href="instructors.html"><span class="link-arrow">&gt;</span> Instructors</a></li>
+            <li><a href="#"><span class="link-arrow">&gt;</span> Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Programming</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Design</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Business</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Data Science</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Language</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Personal Development</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="footer-col footer-newsletter">
+          <h4>Subscribe to Our Newsletter</h4>
+          <p>Get the latest updates, course alerts and more.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); handleBlogSubscribe(this);">
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit" class="newsletter-btn" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Copyright Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 EduNext. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="404.html">Privacy Policy</a>
+          <a href="404.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.querySelector('.navbar');
+      var toggle = document.querySelector('.navbar__toggle');
+      if (!nav || !toggle) return;
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = nav.classList.toggle('menu-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.documentElement.classList.toggle('menu-locked', open);
+        if (open) {
+          var menuEl = nav.querySelector('.navbar__menu');
+          if (menuEl) menuEl.scrollTop = 0;
+        }
+      });
+      var closeMenu = function () {
+        nav.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.documentElement.classList.remove('menu-locked');
+      };
+      document.addEventListener('click', function (e) {
+        if (!nav.contains(e.target)) closeMenu();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+      var menuPanel = nav.querySelector('.navbar__menu');
+      if (menuPanel) {
+        menuPanel.addEventListener('click', function (e) {
+          if (e.target === menuPanel) closeMenu();
+        });
+        var menuLinks = menuPanel.querySelectorAll('a');
+        for (var mi = 0; mi < menuLinks.length; mi++) {
+          menuLinks[mi].addEventListener('click', closeMenu);
+        }
+      }
+    })();
+  </script>
+  <script>
+    function handleBlogSubscribe(form) {
+      var email = form.querySelector('input').value.trim();
+      if (/^[^\s@]+@[^\s@]+\.com$/i.test(email)) {
+        window.location.href = '404.html';
+      } else {
+        alert('Please enter a valid email address ending with .com');
+      }
+    }
+  </script>
+<script>
+(function () {
+  'use strict';
+
+  var docEl = document.documentElement;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var HERO_SEL = '.hero__content, .blog-hero__content, .contact-hero__content, .instructor-hero__content, .services-hero__content, .login-card, .signup-card';
+  var UNIT_SEL = '.offer-banner, .blog-newsletter-banner, .about-cta-container, .services-cta-container, .story-top-grid, .companies-grid, .contact-faq-grid, .contact-features-row, .contact-form-grid';
+  var ITEM_SEL = '[class$="-header"], [class$="-heading"], [class$="-subheading"], [class$="-title"], [class$="-subtitle"], [class$="-desc"], [class$="-tagline"], [class$="-tag"], [class$="-text"], [class$="-card"], [class$="-item"], [class$="-btn"], .resource-card, .offer-headline, .offer-subtext, .offer-countdown, .form-row, .contact-title';
+  var IMG_SEL = '.hero__image img, .blog-hero__image img, .contact-hero__image img, .instructor-hero__image img, .services-hero__image img, .story-image-wrap img, .smart-features-image-wrap img, .why-about-image-wrap img, .offer-student-image, .course-card__thumb, .instructor-card__thumb, .team-card__image, .blog-post-thumb';
+  var PAR_SEL = '.hero__image, .blog-hero__image, .contact-hero__image, .instructor-hero__image, .services-hero__image, .story-image-wrap, .smart-features-image-wrap, .why-about-image-wrap, .offer-floating-badge';
+
+  var SKIP = '.psr-hero, .psr-anim, .footer, nav, header';
+  var IMG_SKIP = '.psr-hero, .footer, nav, header';
+
+  function toArray(list) {
+    return Array.prototype.slice.call(list);
+  }
+
+  function hasRunningAnim(el) {
+    try {
+      return getComputedStyle(el).animationName !== 'none';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* ---------- 1. hero / auth-card load-in ---------- */
+  toArray(document.querySelectorAll(HERO_SEL)).forEach(function (hero) {
+    if (hero.closest(SKIP)) return;
+    hero.classList.add('psr-hero', 'psr-hide');
+    var kids = hero.children;
+    for (var i = 0; i < kids.length; i++) {
+      kids[i].style.transitionDelay = Math.min(i, 6) * 80 + 'ms';
+    }
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        hero.classList.remove('psr-hide');
+      });
+    });
+    setTimeout(function () {
+      hero.classList.remove('psr-hero');
+      for (var i = 0; i < kids.length; i++) kids[i].style.transitionDelay = '';
+    }, 80 * Math.min(kids.length - 1, 6) + 1000);
+  });
+
+  /* ---------- 2. mark scroll reveals ---------- */
+  var toObserve = [];
+
+  function mark(el, img) {
+    el.classList.add('psr-anim');
+    if (img) el.classList.add('psr-img');
+    el.classList.add('psr-hide');
+    toObserve.push(el);
+  }
+
+  function markAll(sel, img) {
+    toArray(document.querySelectorAll(sel)).forEach(function (el) {
+      if (el.closest(img ? IMG_SKIP : SKIP)) return;
+      if (!img && hasRunningAnim(el)) return;
+      mark(el, img);
+    });
+  }
+
+  markAll(UNIT_SEL, false);
+  markAll(ITEM_SEL, false);
+  markAll(IMG_SEL, true);
+
+
+  /* ---------- 3. reveal on scroll (stagger per batch + parent) ---------- */
+  var seq = 0;
+  if (toObserve.length) {
+  var io = new IntersectionObserver(function (entries) {
+    var live = [];
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      live.push(e);
+    });
+    var groups = {};
+    live.forEach(function (e) {
+      var p = e.target.parentElement;
+      if (p) {
+        if (!p.__psrKey) p.__psrKey = 'g' + (++seq);
+        (groups[p.__psrKey] = groups[p.__psrKey] || []).push(e);
+      } else {
+        reveal(e.target, 0);
+      }
+    });
+    Object.keys(groups).forEach(function (k) {
+      var g = groups[k];
+      g.sort(function (a, b) {
+        return (a.boundingClientRect.top - b.boundingClientRect.top) ||
+               (a.boundingClientRect.left - b.boundingClientRect.left);
+      });
+      g.forEach(function (e, i) {
+        reveal(e.target, Math.min(i, 6) * 65);
+      });
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+
+  function reveal(el, delay) {
+    if (delay) el.style.transitionDelay = delay + 'ms';
+    el.classList.remove('psr-hide');
+    setTimeout(function () {
+      el.classList.remove('psr-anim');
+      el.style.transitionDelay = '';
+    }, (el.classList.contains('psr-img') ? 1250 : 850) + delay);
+  }
+
+  toObserve.forEach(function (el) { io.observe(el); });
+
+  /* safety net: never leave on-screen content hidden */
+  setTimeout(function () {
+    toArray(document.querySelectorAll('.psr-hide')).forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        io.unobserve(el);
+        reveal(el, 0);
+      }
+    });
+  }, 4000);
+  }
+
+  /* ---------- 4. subtle parallax ---------- */
+  var parEls = toArray(document.querySelectorAll(PAR_SEL));
+  parEls.forEach(function (el) { el.classList.add('psr-par'); });
+
+  var lastScroll = -1;
+  var ticking = false;
+
+  function requestTick() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(frame);
+    }
+  }
+
+  function updateParallax() {
+    var vh = window.innerHeight;
+    for (var i = 0; i < parEls.length; i++) {
+      var el = parEls[i];
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > vh + 80) continue;
+      var p = (r.top + r.height / 2 - vh / 2) / vh;
+      if (p > 1) p = 1; else if (p < -1) p = -1;
+      var range = el.classList.contains('offer-floating-badge') ? 16 : 26;
+      el.style.transform = 'translate3d(0,' + (-p * range).toFixed(1) + 'px,0)';
+    }
+  }
+
+  /* ---------- 5. smooth wheel scrolling ---------- */
+  var smoothOn = !!(window.matchMedia && window.matchMedia('(pointer: fine)').matches);
+  var sTarget = window.pageYOffset;
+  var sCurrent = sTarget;
+
+  function maxScroll() {
+    return Math.max(0, docEl.scrollHeight - window.innerHeight);
+  }
+
+  function scrollToY(y) {
+    docEl.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    docEl.style.scrollBehavior = '';
+  }
+
+  function stepSmooth() {
+    var diff = sTarget - sCurrent;
+    if (Math.abs(diff) < 0.4) {
+      if (diff !== 0) {
+        sCurrent = sTarget;
+        scrollToY(sCurrent);
+      }
+      return false;
+    }
+    sCurrent += diff * 0.18;
+    if (sCurrent < 0) sCurrent = 0;
+    else if (sCurrent > maxScroll()) sCurrent = maxScroll();
+    scrollToY(sCurrent);
+    return true;
+  }
+
+  function frame() {
+    ticking = false;
+    var y = window.pageYOffset;
+    if (y !== lastScroll) {
+      lastScroll = y;
+      updateParallax();
+    }
+    if (smoothOn && stepSmooth()) requestTick();
+  }
+
+  if (smoothOn) {
+    window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.defaultPrevented || !e.deltaY) return;
+      if (docEl.classList.contains('menu-locked')) return;
+      e.preventDefault();
+      var d = e.deltaY;
+      if (e.deltaMode === 1) d *= 16;
+      else if (e.deltaMode === 2) d *= window.innerHeight;
+      sTarget = Math.min(Math.max(sTarget + d, 0), maxScroll());
+      requestTick();
+    }, { passive: false });
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!(smoothOn && Math.abs(sTarget - sCurrent) > 0.5)) {
+      if (Math.abs(window.pageYOffset - sCurrent) > 2) {
+        sTarget = sCurrent = window.pageYOffset;
+      }
+    }
+    requestTick();
+  }, { passive: true });
+
+  window.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowUp' || k === 'ArrowDown' || k === 'PageUp' || k === 'PageDown' ||
+        k === 'Home' || k === 'End' || k === ' ') {
+      sTarget = sCurrent = window.pageYOffset;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', function () {
+    sTarget = sCurrent = window.pageYOffset;
+    lastScroll = -1;
+    requestTick();
+  });
+
+  updateParallax();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructors - EduNext</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    html {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-text-size-adjust: 100%;
+      touch-action: pan-y;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #1e293b;
+      line-height: 1.5;
+      overflow-x: hidden;
+      overflow-x: clip;
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    html.menu-locked {
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      width: 100%;
+    }
+
+    .navbar {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      height: 86px;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .navbar__logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .navbar__logo img {
+      width: 210px;
+      height: 70px;
+      opacity: 1;
+      transform: none;
+      display: block;
+    }
+
+    .navbar__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 9px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .navbar__toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: #111827;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        --navbar-h: 68px;
+        flex-wrap: nowrap;
+        height: var(--navbar-h);
+        min-height: var(--navbar-h);
+        padding: 12px 20px;
+      }
+
+      .navbar__logo img {
+        width: 156px;
+        height: 52px;
+      }
+
+      .navbar__toggle {
+        display: flex;
+      }
+
+      .navbar .navbar__menu {
+        display: none;
+      }
+
+      .navbar.menu-open .navbar__menu {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        height: calc(100vh - var(--navbar-h));
+        height: calc(100dvh - var(--navbar-h));
+        padding: 16px 20px 24px;
+        background: #ffffff;
+        border-top: 1px solid #f1f5f9;
+        box-shadow: 0 24px 48px rgba(15, 23, 42, 0.14);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        z-index: 1001;
+      }
+
+      .navbar.menu-open .navbar__links {
+        display: flex;
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+
+      .navbar.menu-open .navbar__links li,
+      .navbar.menu-open .navbar__links a {
+        display: block;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__links a {
+        padding: 14px 0;
+        font-size: 16px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .navbar.menu-open .navbar__right {
+        display: flex;
+        order: 4;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 18px 0 4px;
+        margin-top: 4px;
+      }
+
+      .navbar.menu-open .navbar__right .navbar__search {
+        display: flex;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right .navbar__search input {
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right > a {
+        display: block;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right .btn-login,
+      .navbar.menu-open .navbar__right .btn-signup {
+        width: 100%;
+        padding: 12px 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        --navbar-h: 62px;
+      }
+
+      .navbar {
+        padding: 10px 16px;
+      }
+
+      .navbar__logo img {
+        width: 138px;
+        height: auto;
+        max-height: 46px;
+      }
+
+      .instructor-hero {
+        padding: 24px 16px 0;
+      }
+
+      .instructor-heading {
+        font-size: 26px;
+        word-break: break-word;
+      }
+
+      .instructor-description {
+        font-size: 13.5px;
+        max-width: 100%;
+      }
+
+      .btn-instructor-explore {
+        width: 100%;
+      }
+
+      .instructors-grid-container,
+      .instructor-stats-container,
+      .blog-newsletter-container,
+      .footer-container {
+        padding: 0 16px;
+      }
+
+      .instructors-grid-title {
+        font-size: 26px;
+        word-break: break-word;
+      }
+
+      .instructor-profile-card {
+        padding: 24px 16px 20px;
+      }
+
+      .footer-legal {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+    }
+
+    .navbar__menu {
+      display: contents;
+    }
+
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .navbar__links a {
+      text-decoration: none;
+      color: #334155;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .navbar__links a:hover,
+    .navbar__links a.active {
+      color: #0066ff;
+    }
+
+    .navbar__links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #0066ff;
+      border-radius: 2px;
+    }
+
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .navbar__search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar__search input {
+      padding: 8px 16px 8px 36px;
+      border: 1px solid #e2e8f0;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      outline: none;
+      width: 220px;
+      transition: all 0.2s;
+      background: #f8fafc;
+    }
+
+    .navbar__search input:focus {
+      border-color: #0066ff;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+    }
+
+    .navbar__search svg {
+      position: absolute;
+      left: 12px;
+      color: #94a3b8;
+    }
+
+    .btn-login {
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0066ff;
+      background: transparent;
+      border: 1px solid #0066ff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-login:hover {
+      background: rgba(0, 102, 255, 0.05);
+    }
+
+    .btn-signup {
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: #0066ff;
+      border: 1px solid #0066ff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-signup:hover {
+      background: #0052cc;
+      border-color: #0052cc;
+    }
+
+    /* ===== BLOG HERO SECTION ===== */
+    .instructor-hero-wrapper {
+      background-color: #eef6fe;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .instructor-hero {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      min-height: 460px;
+    }
+
+    .instructor-hero__content {
+      flex: 1.1;
+      max-width: 530px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    /* Breadcrumbs */
+    .instructor-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .instructor-breadcrumbs a {
+      color: #0066ff;
+      text-decoration: none;
+      transition: text-decoration 0.2s;
+    }
+
+    .instructor-breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+
+    .instructor-breadcrumbs .separator {
+      color: #0066ff;
+      font-size: 12px;
+    }
+
+    .instructor-breadcrumbs .current {
+      color: #0066ff;
+    }
+
+    /* Tagline */
+    .instructor-tagline {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0066ff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    /* Main Heading */
+    .instructor-heading {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #0f172a;
+      margin-bottom: 22px;
+      letter-spacing: -0.6px;
+    }
+
+    .instructor-heading span {
+      color: #0066ff;
+    }
+
+    /* Description */
+    .instructor-description {
+      font-size: 14.5px;
+      line-height: 1.62;
+      color: #334155;
+      margin-bottom: 30px;
+      max-width: 440px;
+    }
+
+    /* CTA Button */
+    .btn-instructor-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      padding: 12px 24px;
+      background: #0066ff;
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 600;
+      border: 1px solid #0066ff;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      width: fit-content;
+    }
+
+    .btn-instructor-explore:hover {
+      background: #0052cc;
+      border-color: #0052cc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+    }
+
+    /* Hero Right Image */
+    .instructor-hero__image {
+      flex: 1.35;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      min-width: 0;
+      align-self: flex-end;
+    }
+
+    .instructor-hero__image img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: bottom right;
+      vertical-align: bottom;
+      margin-bottom: 0;
+    }
+
+    /* ===== FOOTER SECTION ===== */
+    .footer {
+      background: #091e3e;
+      color: #94a3b8;
+      width: 100%;
+      padding: 70px 0 30px;
+    }
+
+    .footer-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr 1fr 1.6fr;
+      gap: 48px;
+      margin-bottom: 55px;
+    }
+
+    /* Brand Column */
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-tagline {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #94a3b8;
+      max-width: 280px;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .social-icon-btn:hover {
+      background: #0066ff;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .social-icon-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Footer Navigation Columns */
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 22px;
+      letter-spacing: -0.2px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #38bdf8;
+      transform: translateX(3px);
+    }
+
+    .footer-links .link-arrow {
+      color: #0066ff;
+      font-size: 11px;
+    }
+
+    /* Newsletter Form */
+    .footer-newsletter p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #94a3b8;
+      margin-bottom: 18px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 4px;
+      transition: border-color 0.2s;
+    }
+
+    .newsletter-form:focus-within {
+      border-color: #0066ff;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 8px 12px;
+      color: #ffffff;
+      font-size: 13px;
+    }
+
+    .newsletter-form input::placeholder {
+      color: #64748b;
+    }
+
+    .newsletter-btn {
+      background: #0066ff;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .newsletter-btn:hover {
+      background: #0052cc;
+    }
+
+    .newsletter-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Footer Bottom Row */
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: #94a3b8;
+    }
+
+    .footer-legal {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-legal a:hover {
+      color: #ffffff;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .navbar {
+        padding: 14px 24px;
+      }
+
+      .navbar__links {
+        gap: 20px;
+      }
+
+      .navbar__search {
+        min-width: 180px;
+      }
+
+      .instructor-hero {
+        padding: 40px 24px 0;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .instructor-hero__content {
+        text-align: center;
+        max-width: 600px;
+        align-items: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }
+
+      .instructor-breadcrumbs {
+        justify-content: center;
+      }
+
+      .instructor-hero__image {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .instructor-hero__image img {
+        max-width: 540px;
+      }
+
+      .footer-main {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar__links {
+        display: none;
+      }
+
+      .navbar__search {
+        display: none;
+      }
+
+      .instructor-heading {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar {
+        padding: 12px 16px;
+      }
+
+      .instructor-hero {
+        padding: 28px 16px 0;
+      }
+
+      .instructor-heading {
+        font-size: 27px;
+      }
+
+      .instructor-description {
+        font-size: 13.5px;
+      }
+
+      .footer {
+        padding: 50px 0 25px;
+      }
+
+      .footer-container {
+        padding: 0 20px;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+
+    /* ===== INSTRUCTORS GRID SECTION ===== */
+    .instructors-grid-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 80px 0 95px;
+    }
+
+    .instructors-grid-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .instructors-grid-header {
+      margin-bottom: 45px;
+    }
+
+    .instructors-grid-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0066ff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .instructors-grid-title {
+      font-size: 38px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .instructors-grid-desc {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #475569;
+      max-width: 520px;
+    }
+
+    .instructors-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .instructor-profile-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 36px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      box-sizing: border-box;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .instructor-profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+      border-color: #0066ff;
+    }
+
+    .instructor-avatar-wrap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 24px;
+      background: #e2e8f0;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      align-self: center;
+    }
+
+    .instructor-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .instructor-card-name {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .instructor-card-role {
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+      margin-bottom: 16px;
+    }
+
+    .instructor-experience {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 16px;
+    }
+
+    .instructor-card-bio {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #475569;
+      margin-bottom: 22px;
+      min-height: 64px;
+    }
+
+    .instructor-skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      width: 100%;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: #f0f7ff;
+      color: #0066ff;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 20px;
+    }
+
+    .skill-badge-more {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 20px;
+    }
+
+    .instructor-card-rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      color: #334155;
+      margin-bottom: 22px;
+    }
+
+    .instructor-card-rating .star {
+      color: #eab308;
+      font-size: 16px;
+    }
+
+    .instructor-card-rating .score {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .btn-view-profile {
+      width: 100%;
+      text-align: center;
+      display: block;
+      padding: 12px 20px;
+      border: 1.5px solid #0066ff;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #0066ff;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    .btn-view-profile:hover {
+      background: #0066ff;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+    }
+
+    /* ===== INSTRUCTOR STATS SECTION ===== */
+    .instructor-stats-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 0 0 85px;
+    }
+
+    .instructor-stats-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .instructor-stats-card {
+      background: #f0f7ff;
+      border-radius: 16px;
+      padding: 48px 50px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 40px;
+      column-gap: 60px;
+      box-sizing: border-box;
+    }
+
+    .instructor-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .instructor-stat-icon-wrap {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .instructor-stat-icon-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .instructor-stat-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .instructor-stat-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .instructor-stat-label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .instructor-stat-sub {
+      font-size: 12.5px;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    /* ===== BLOG NEWSLETTER BANNER SECTION ===== */
+    .blog-newsletter-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 0 0 95px;
+    }
+
+    .blog-newsletter-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .blog-newsletter-banner {
+      background: linear-gradient(135deg, #0a3d8f 0%, #0047b3 50%, #005ce6 100%);
+      border-radius: 14px;
+      padding: 38px 45px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 71, 179, 0.2);
+    }
+
+    .blog-newsletter-banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .blog-newsletter-left {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      z-index: 1;
+    }
+
+    .blog-newsletter-cap-wrap {
+      width: 68px;
+      height: 68px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blog-newsletter-cap-wrap img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+    }
+
+    .blog-newsletter-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .blog-newsletter-heading {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    .blog-newsletter-sub {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 13.5px;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .blog-newsletter-right {
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .blog-newsletter-form {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 5px 5px 5px 16px;
+      width: 380px;
+      max-width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-newsletter-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 13.5px;
+      color: #0f172a;
+      background: transparent;
+      padding: 8px 4px;
+      font-family: inherit;
+    }
+
+    .blog-newsletter-input::placeholder {
+      color: #64748b;
+    }
+
+    .blog-newsletter-submit {
+      background: #0066ff;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .blog-newsletter-submit:hover {
+      background: #0052cc;
+      transform: translateX(1px);
+    }
+
+    .blog-newsletter-submit svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Responsive for Instructors Grid */
+    @media (max-width: 1024px) {
+      .instructors-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .instructor-stats-card {
+        padding: 36px 30px;
+        gap: 30px;
+      }
+
+      .blog-newsletter-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 32px 30px;
+        gap: 24px;
+      }
+
+      .blog-newsletter-right {
+        width: 100%;
+      }
+
+      .blog-newsletter-form {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .instructors-grid-section {
+        padding: 55px 0 60px;
+      }
+
+      .instructor-stats-section {
+        padding: 0 0 60px;
+      }
+
+      .blog-newsletter-section {
+        padding: 0 0 60px;
+      }
+
+      .instructors-grid-title {
+        font-size: 30px;
+      }
+
+      .instructors-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .instructor-stats-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px 24px;
+      }
+
+      .blog-newsletter-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .blog-newsletter-heading {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .instructors-grid-container,
+      .instructor-stats-container,
+      .blog-newsletter-container {
+        padding: 0 20px;
+      }
+
+      .instructors-grid-title {
+        font-size: 26px;
+      }
+
+      .instructor-profile-card {
+        padding: 28px 20px 22px;
+      }
+
+      .blog-newsletter-banner {
+        padding: 26px 20px;
+      }
+
+      .blog-newsletter-form {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .blog-newsletter-input {
+        width: 100%;
+        padding: 6px 4px;
+      }
+
+      .blog-newsletter-submit {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+<style>
+/* ===== PREMIUM SCROLL (reveals / parallax) ===== */
+html { scroll-behavior: smooth; }
+
+.psr-anim {
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-anim.psr-img {
+  transition: opacity .9s cubic-bezier(.22, 1, .36, 1), transform 1.1s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-hide {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+}
+.psr-img.psr-hide {
+  transform: scale(1.06);
+}
+
+.psr-hero > * {
+  transition: opacity .75s cubic-bezier(.22, 1, .36, 1), transform .75s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-hero.psr-hide > * {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.psr-par { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .psr-anim, .psr-hero > * { transition: none !important; }
+  .psr-hide, .psr-hero.psr-hide > * { opacity: 1 !important; transform: none !important; }
+  .psr-par { will-change: auto; }
+}
+</style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <div class="navbar-wrapper">
+    <nav class="navbar">
+      <div class="navbar__logo">
+        <a href="index.html">
+          <img src="images/305454e6d60d6ab9bc238ee3266769bbb336f82f.webp" alt="Stackly" />
+        </a>
+      </div>
+
+      <div class="navbar__menu">
+        <ul class="navbar__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="instructors.html" class="active">Instructors</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <div class="navbar__right">
+          <div class="navbar__search">
+            <input type="text" placeholder="Search for products, farmers..." onkeydown="if(event.key==='Enter'){window.location.href='404.html';}" />
+            <a href="404.html" aria-label="Search" style="display:inline-flex;align-items:center;color:inherit;text-decoration:none;cursor:pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg></a>
+          </div>
+          <a href="login.html" style="text-decoration:none;"><button class="btn-login">Login</button></a>
+          <a href="signup.html" style="text-decoration:none;"><button class="btn-signup">Sign Up</button></a>
+        </div>
+      </div>
+
+      <button class="navbar__toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ===== INSTRUCTOR HERO SECTION ===== -->
+  <div class="instructor-hero-wrapper">
+    <section class="instructor-hero">
+      <div class="instructor-hero__content">
+        <!-- Breadcrumbs -->
+        <div class="instructor-breadcrumbs">
+          <a href="index.html">Home</a>
+          <span class="separator">&gt;</span>
+          <span class="current">Instructors</span>
+        </div>
+
+        <div class="instructor-tagline">OUR INSTUCTORS</div>
+
+        <h1 class="instructor-heading">
+          Learn from<br /><span>Industry Experts</span>
+        </h1>
+
+        <p class="instructor-description">
+          Our instructors are experienced professionals, passionate about teaching and dedicated to helping you achieve your learning goals.
+        </p>
+
+        <a href="404.html" class="btn-instructor-explore">Explore All Articles &rarr;</a>
+      </div>
+
+      <!-- Hero Right Image -->
+      <div class="instructor-hero__image">
+        <img src="images/instructor_hero_hd.webp" alt="Instructor - Learn from the Best" />
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== INSTRUCTORS GRID SECTION ===== -->
+  <section class="instructors-grid-section" id="explore">
+    <div class="instructors-grid-container">
+      <div class="instructors-grid-header">
+        <span class="instructors-grid-tag">LATEST ARTICLES</span>
+        <h2 class="instructors-grid-title">Instructors Grid</h2>
+        <p class="instructors-grid-desc">
+          Discover helpful articles, learning strategies and expert advice from our education community.
+        </p>
+      </div>
+
+      <div class="instructors-cards-grid">
+        <!-- Card 1: Arun Kumar -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_arun.webp" alt="Arun Kumar" />
+          </div>
+          <h3 class="instructor-card-name">Arun Kumar</h3>
+          <p class="instructor-card-role">Senior Full Stack Developer</p>
+          <div class="instructor-experience">
+            <span>💼</span> 8+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            Passionate about building scalable web applications and teaching modern technologies with real-world projects.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">React</span>
+            <span class="skill-badge">Node.js</span>
+            <span class="skill-badge">MongoDB</span>
+            <span class="skill-badge-more">+2</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.9</span> (1.2k students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 2: Priya Nair -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_priya.webp" alt="Priya Nair" />
+          </div>
+          <h3 class="instructor-card-name">Priya Nair</h3>
+          <p class="instructor-card-role">UI/UX Design Expert</p>
+          <div class="instructor-experience">
+            <span>💼</span> 6+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            Helping learners create user-friendly and beautiful designs with a practical and creative approach.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Figma</span>
+            <span class="skill-badge">UI/UX</span>
+            <span class="skill-badge">Wireframing</span>
+            <span class="skill-badge-more">+01</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.8</span> (980 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 3: Vikram S -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_vikram.webp" alt="Vikram S" />
+          </div>
+          <h3 class="instructor-card-name">Vikram S</h3>
+          <p class="instructor-card-role">Data Science Instructor</p>
+          <div class="instructor-experience">
+            <span>💼</span> 7+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            I love turning data into insights and helping students build strong analytical skills for real-world problems
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">Pandas</span>
+            <span class="skill-badge">Machine</span>
+            <span class="skill-badge-more">+2</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.9</span> (870 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 4: Ananya Reddy -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_ananya.webp" alt="Ananya Reddy" />
+          </div>
+          <h3 class="instructor-card-name">Ananya Reddy</h3>
+          <p class="instructor-card-role">Digital Marketing Specialist</p>
+          <div class="instructor-experience">
+            <span>💼</span> 5+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            I create simple strategies that work. Let's grow your skills in digital marketing together.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">SEO</span>
+            <span class="skill-badge">Social Media</span>
+            <span class="skill-badge">Content</span>
+            <span class="skill-badge-more">+1</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.7</span> (650 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 5: Karthik N -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_karthik.webp" alt="Karthik N" />
+          </div>
+          <h3 class="instructor-card-name">Karthik N</h3>
+          <p class="instructor-card-role">Product Designer</p>
+          <div class="instructor-experience">
+            <span>💼</span> 5+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            Designing meaningful experiences that solve real problems and create value for users.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Figma</span>
+            <span class="skill-badge">Adobe XD</span>
+            <span class="skill-badge">Prototyping</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.8</span> (720 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 6: Sneha T -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_sneha.webp" alt="Sneha T" />
+          </div>
+          <h3 class="instructor-card-name">Sneha T</h3>
+          <p class="instructor-card-role">English Language Trainer</p>
+          <div class="instructor-experience">
+            <span>💼</span> 6+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            I make learning English simple, practical and enjoyable for all levels
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Spoken English</span>
+            <span class="skill-badge">Grammar</span>
+            <span class="skill-badge">IELTS</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.9</span> (540 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 7: Rohit Sharma -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_rohit.webp" alt="Rohit Sharma" />
+          </div>
+          <h3 class="instructor-card-name">Rohit Sharma</h3>
+          <p class="instructor-card-role">Java &amp; Spring Boot Expert</p>
+          <div class="instructor-experience">
+            <span>💼</span> 7+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            Teaching core concepts with hands-on coding and real-world project experience.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Java</span>
+            <span class="skill-badge">Spring Boot</span>
+            <span class="skill-badge">MySQL</span>
+            <span class="skill-badge-more">+2</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.8</span> (690 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 8: Meera Krishnan -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_meera.webp" alt="Meera Krishnan" />
+          </div>
+          <h3 class="instructor-card-name">Meera Krishnan</h3>
+          <p class="instructor-card-role">Business &amp; Marketing Trainer</p>
+          <div class="instructor-experience">
+            <span>💼</span> 6+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            I help learners build business skills and marketing strategies for career growth and success.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Business Strategy</span>
+            <span class="skill-badge">Branding</span>
+            <span class="skill-badge">Sales</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.7</span> (450 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 9: Suresh Babu -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_suresh.webp" alt="Suresh Babu" />
+          </div>
+          <h3 class="instructor-card-name">Suresh Babu</h3>
+          <p class="instructor-card-role">Database Administrator</p>
+          <div class="instructor-experience">
+            <span>💼</span> 8+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            I simplify complex database concepts and help learners build strong SQL foundations.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">SQL</span>
+            <span class="skill-badge">MySQL</span>
+            <span class="skill-badge">PostgreSQL</span>
+            <span class="skill-badge-more">+1</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.8</span> (620 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 10: Divya Lakshmi -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_divya.webp" alt="Divya Lakshmi" />
+          </div>
+          <h3 class="instructor-card-name">Divya Lakshmi</h3>
+          <p class="instructor-card-role">Mobile App Developer</p>
+          <div class="instructor-experience">
+            <span>💼</span> 5+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            From idea to app — I guide you through the complete mobile app development journey.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Flutter</span>
+            <span class="skill-badge">React Native</span>
+            <span class="skill-badge">Firebase</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.7</span> (510 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 11: Ajay Kumar -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_ajay.webp" alt="Ajay Kumar" />
+          </div>
+          <h3 class="instructor-card-name">Ajay Kumar</h3>
+          <p class="instructor-card-role">Cloud &amp; DevOps Engineer</p>
+          <div class="instructor-experience">
+            <span>💼</span> 6+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            I help learners master cloud platforms and DevOps tools for modern infrastructure.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">AWS</span>
+            <span class="skill-badge">Docker</span>
+            <span class="skill-badge">Kubernetes</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.8</span> (450 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+
+        <!-- Card 12: Leela V -->
+        <article class="instructor-profile-card">
+          <div class="instructor-avatar-wrap">
+            <img src="images/instructor_leela.webp" alt="Leela V" />
+          </div>
+          <h3 class="instructor-card-name">Leela V</h3>
+          <p class="instructor-card-role">Mathematics Expert</p>
+          <div class="instructor-experience">
+            <span>💼</span> 7+ Years Experience
+          </div>
+          <p class="instructor-card-bio">
+            Making math simple, clear and interesting for every learner, from basics to advanced.
+          </p>
+          <div class="instructor-skills-list">
+            <span class="skill-badge">Algebra</span>
+            <span class="skill-badge">Geometry</span>
+            <span class="skill-badge">Calculus</span>
+          </div>
+          <div class="instructor-card-rating">
+            <span class="star">⭐</span>
+            <span class="score">4.9</span> (410 students)
+          </div>
+          <a href="404.html" class="btn-view-profile">View Profile</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSTRUCTOR STATS SECTION ===== -->
+  <section class="instructor-stats-section">
+    <div class="instructor-stats-container">
+      <div class="instructor-stats-card">
+        <!-- Stat 1: 50+ Expert Instructors -->
+        <div class="instructor-stat-item">
+          <div class="instructor-stat-icon-wrap">
+            <img src="images/stat_icon_instructors.webp" alt="Expert Instructors" />
+          </div>
+          <div class="instructor-stat-info">
+            <div class="instructor-stat-number">50+</div>
+            <div class="instructor-stat-label">Expert Instructors</div>
+            <div class="instructor-stat-sub">Learn from industry professionals</div>
+          </div>
+        </div>
+
+        <!-- Stat 2: 10K+ Happy Learners -->
+        <div class="instructor-stat-item">
+          <div class="instructor-stat-icon-wrap">
+            <img src="images/stat_icon_learners.webp" alt="Happy Learners" />
+          </div>
+          <div class="instructor-stat-info">
+            <div class="instructor-stat-number">10K+</div>
+            <div class="instructor-stat-label">Happy Learners</div>
+            <div class="instructor-stat-sub">Join our growing community</div>
+          </div>
+        </div>
+
+        <!-- Stat 3: 4.8/5 Average Rating -->
+        <div class="instructor-stat-item">
+          <div class="instructor-stat-icon-wrap">
+            <img src="images/stat_icon_rating.webp" alt="Average Rating" />
+          </div>
+          <div class="instructor-stat-info">
+            <div class="instructor-stat-number">4.8/5</div>
+            <div class="instructor-stat-label">Average Rating</div>
+            <div class="instructor-stat-sub">Based on real student reviews</div>
+          </div>
+        </div>
+
+        <!-- Stat 4: 100+ Expert-Led Courses -->
+        <div class="instructor-stat-item">
+          <div class="instructor-stat-icon-wrap">
+            <img src="images/stat_icon_courses.webp" alt="Expert-Led Courses" />
+          </div>
+          <div class="instructor-stat-info">
+            <div class="instructor-stat-number">100+</div>
+            <div class="instructor-stat-label">Expert-Led Courses</div>
+            <div class="instructor-stat-sub">From beginner to advanced</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG NEWSLETTER BANNER SECTION ===== -->
+  <section class="blog-newsletter-section">
+    <div class="blog-newsletter-container">
+      <div class="blog-newsletter-banner">
+        <div class="blog-newsletter-left">
+          <div class="blog-newsletter-cap-wrap">
+            <img src="images/cap_transparent.webp" alt="Graduation Cap" />
+          </div>
+          <div class="blog-newsletter-text">
+            <h3 class="blog-newsletter-heading">Stay Updated with Our Latest Blogs</h3>
+            <p class="blog-newsletter-sub">Get the latest articles, tips and learning resources delivered to your inbox.</p>
+          </div>
+        </div>
+        <div class="blog-newsletter-right">
+          <form class="blog-newsletter-form" onsubmit="event.preventDefault(); handleBlogSubscribe(this);">
+            <input type="email" class="blog-newsletter-input" placeholder="Enter your email address" required />
+            <button type="submit" class="blog-newsletter-submit">
+              Subscribe &rarr;
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER SECTION ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-main">
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <a href="index.html">
+              <img src="images/305454e6d60d6ab9bc238ee3266769bbb336f82f.webp" alt="Stackly" />
+            </a>
+          </div>
+          <p class="footer-tagline">
+            Connecting farmers and consumers for a healthier and greener tomorrow.
+          </p>
+          <div class="footer-socials">
+            <!-- Facebook -->
+            <a href="404.html" class="social-icon-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.52-.14-2.71-.14-2.73 0-4.79 1.66-4.79 4.8v2.7H7.5v4H10V22h4v-8.5z"/></svg>
+            </a>
+            <!-- Twitter / X -->
+            <a href="404.html" class="social-icon-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="404.html" class="social-icon-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <!-- YouTube -->
+            <a href="404.html" class="social-icon-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><span class="link-arrow">&gt;</span> Home</a></li>
+            <li><a href="about.html"><span class="link-arrow">&gt;</span> About Us</a></li>
+            <li><a href="services.html"><span class="link-arrow">&gt;</span> Services</a></li>
+            <li><a href="blog.html"><span class="link-arrow">&gt;</span> Blog</a></li>
+            <li><a href="#"><span class="link-arrow">&gt;</span> Instructors</a></li>
+            <li><a href="#"><span class="link-arrow">&gt;</span> Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Programming</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Design</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Business</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Data Science</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Language</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Personal Development</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="footer-col footer-newsletter">
+          <h4>Subscribe to Our Newsletter</h4>
+          <p>Get the latest updates, course alerts and more.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); handleNewsletterSubmit(this);">
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit" class="newsletter-btn" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Copyright Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 EduNext. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="404.html">Privacy Policy</a>
+          <a href="404.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.querySelector('.navbar');
+      var toggle = document.querySelector('.navbar__toggle');
+      if (!nav || !toggle) return;
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = nav.classList.toggle('menu-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.documentElement.classList.toggle('menu-locked', open);
+        if (open) {
+          var menuEl = nav.querySelector('.navbar__menu');
+          if (menuEl) menuEl.scrollTop = 0;
+        }
+      });
+      var closeMenu = function () {
+        nav.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.documentElement.classList.remove('menu-locked');
+      };
+      document.addEventListener('click', function (e) {
+        if (!nav.contains(e.target)) closeMenu();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+      var menuPanel = nav.querySelector('.navbar__menu');
+      if (menuPanel) {
+        menuPanel.addEventListener('click', function (e) {
+          if (e.target === menuPanel) closeMenu();
+        });
+        var menuLinks = menuPanel.querySelectorAll('a');
+        for (var mi = 0; mi < menuLinks.length; mi++) {
+          menuLinks[mi].addEventListener('click', closeMenu);
+        }
+      }
+    })();
+  </script>
+  <script>
+    function handleBlogSubscribe(form) {
+      var email = form.querySelector('input').value.trim();
+      if (/^[^\s@]+@[^\s@]+\.com$/i.test(email)) {
+        window.location.href = '404.html';
+      } else {
+        alert('Please enter a valid email address ending with .com');
+      }
+    }
+    var handleNewsletterSubmit = handleBlogSubscribe;
+  </script>
+<script>
+(function () {
+  'use strict';
+
+  var docEl = document.documentElement;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var HERO_SEL = '.hero__content, .blog-hero__content, .contact-hero__content, .instructor-hero__content, .services-hero__content, .login-card, .signup-card';
+  var UNIT_SEL = '.offer-banner, .blog-newsletter-banner, .about-cta-container, .services-cta-container, .story-top-grid, .companies-grid, .contact-faq-grid, .contact-features-row, .contact-form-grid';
+  var ITEM_SEL = '[class$="-header"], [class$="-heading"], [class$="-subheading"], [class$="-title"], [class$="-subtitle"], [class$="-desc"], [class$="-tagline"], [class$="-tag"], [class$="-text"], [class$="-card"], [class$="-item"], [class$="-btn"], .resource-card, .offer-headline, .offer-subtext, .offer-countdown, .form-row, .contact-title';
+  var IMG_SEL = '.hero__image img, .blog-hero__image img, .contact-hero__image img, .instructor-hero__image img, .services-hero__image img, .story-image-wrap img, .smart-features-image-wrap img, .why-about-image-wrap img, .offer-student-image, .course-card__thumb, .instructor-card__thumb, .team-card__image, .blog-post-thumb';
+  var PAR_SEL = '.hero__image, .blog-hero__image, .contact-hero__image, .instructor-hero__image, .services-hero__image, .story-image-wrap, .smart-features-image-wrap, .why-about-image-wrap, .offer-floating-badge';
+
+  var SKIP = '.psr-hero, .psr-anim, .footer, nav, header';
+  var IMG_SKIP = '.psr-hero, .footer, nav, header';
+
+  function toArray(list) {
+    return Array.prototype.slice.call(list);
+  }
+
+  function hasRunningAnim(el) {
+    try {
+      return getComputedStyle(el).animationName !== 'none';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* ---------- 1. hero / auth-card load-in ---------- */
+  toArray(document.querySelectorAll(HERO_SEL)).forEach(function (hero) {
+    if (hero.closest(SKIP)) return;
+    hero.classList.add('psr-hero', 'psr-hide');
+    var kids = hero.children;
+    for (var i = 0; i < kids.length; i++) {
+      kids[i].style.transitionDelay = Math.min(i, 6) * 80 + 'ms';
+    }
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        hero.classList.remove('psr-hide');
+      });
+    });
+    setTimeout(function () {
+      hero.classList.remove('psr-hero');
+      for (var i = 0; i < kids.length; i++) kids[i].style.transitionDelay = '';
+    }, 80 * Math.min(kids.length - 1, 6) + 1000);
+  });
+
+  /* ---------- 2. mark scroll reveals ---------- */
+  var toObserve = [];
+
+  function mark(el, img) {
+    el.classList.add('psr-anim');
+    if (img) el.classList.add('psr-img');
+    el.classList.add('psr-hide');
+    toObserve.push(el);
+  }
+
+  function markAll(sel, img) {
+    toArray(document.querySelectorAll(sel)).forEach(function (el) {
+      if (el.closest(img ? IMG_SKIP : SKIP)) return;
+      if (!img && hasRunningAnim(el)) return;
+      mark(el, img);
+    });
+  }
+
+  markAll(UNIT_SEL, false);
+  markAll(ITEM_SEL, false);
+  markAll(IMG_SEL, true);
+
+
+  /* ---------- 3. reveal on scroll (stagger per batch + parent) ---------- */
+  var seq = 0;
+  if (toObserve.length) {
+  var io = new IntersectionObserver(function (entries) {
+    var live = [];
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      live.push(e);
+    });
+    var groups = {};
+    live.forEach(function (e) {
+      var p = e.target.parentElement;
+      if (p) {
+        if (!p.__psrKey) p.__psrKey = 'g' + (++seq);
+        (groups[p.__psrKey] = groups[p.__psrKey] || []).push(e);
+      } else {
+        reveal(e.target, 0);
+      }
+    });
+    Object.keys(groups).forEach(function (k) {
+      var g = groups[k];
+      g.sort(function (a, b) {
+        return (a.boundingClientRect.top - b.boundingClientRect.top) ||
+               (a.boundingClientRect.left - b.boundingClientRect.left);
+      });
+      g.forEach(function (e, i) {
+        reveal(e.target, Math.min(i, 6) * 65);
+      });
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+
+  function reveal(el, delay) {
+    if (delay) el.style.transitionDelay = delay + 'ms';
+    el.classList.remove('psr-hide');
+    setTimeout(function () {
+      el.classList.remove('psr-anim');
+      el.style.transitionDelay = '';
+    }, (el.classList.contains('psr-img') ? 1250 : 850) + delay);
+  }
+
+  toObserve.forEach(function (el) { io.observe(el); });
+
+  /* safety net: never leave on-screen content hidden */
+  setTimeout(function () {
+    toArray(document.querySelectorAll('.psr-hide')).forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        io.unobserve(el);
+        reveal(el, 0);
+      }
+    });
+  }, 4000);
+  }
+
+  /* ---------- 4. subtle parallax ---------- */
+  var parEls = toArray(document.querySelectorAll(PAR_SEL));
+  parEls.forEach(function (el) { el.classList.add('psr-par'); });
+
+  var lastScroll = -1;
+  var ticking = false;
+
+  function requestTick() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(frame);
+    }
+  }
+
+  function updateParallax() {
+    var vh = window.innerHeight;
+    for (var i = 0; i < parEls.length; i++) {
+      var el = parEls[i];
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > vh + 80) continue;
+      var p = (r.top + r.height / 2 - vh / 2) / vh;
+      if (p > 1) p = 1; else if (p < -1) p = -1;
+      var range = el.classList.contains('offer-floating-badge') ? 16 : 26;
+      el.style.transform = 'translate3d(0,' + (-p * range).toFixed(1) + 'px,0)';
+    }
+  }
+
+  /* ---------- 5. smooth wheel scrolling ---------- */
+  var smoothOn = !!(window.matchMedia && window.matchMedia('(pointer: fine)').matches);
+  var sTarget = window.pageYOffset;
+  var sCurrent = sTarget;
+
+  function maxScroll() {
+    return Math.max(0, docEl.scrollHeight - window.innerHeight);
+  }
+
+  function scrollToY(y) {
+    docEl.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    docEl.style.scrollBehavior = '';
+  }
+
+  function stepSmooth() {
+    var diff = sTarget - sCurrent;
+    if (Math.abs(diff) < 0.4) {
+      if (diff !== 0) {
+        sCurrent = sTarget;
+        scrollToY(sCurrent);
+      }
+      return false;
+    }
+    sCurrent += diff * 0.18;
+    if (sCurrent < 0) sCurrent = 0;
+    else if (sCurrent > maxScroll()) sCurrent = maxScroll();
+    scrollToY(sCurrent);
+    return true;
+  }
+
+  function frame() {
+    ticking = false;
+    var y = window.pageYOffset;
+    if (y !== lastScroll) {
+      lastScroll = y;
+      updateParallax();
+    }
+    if (smoothOn && stepSmooth()) requestTick();
+  }
+
+  if (smoothOn) {
+    window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.defaultPrevented || !e.deltaY) return;
+      if (docEl.classList.contains('menu-locked')) return;
+      e.preventDefault();
+      var d = e.deltaY;
+      if (e.deltaMode === 1) d *= 16;
+      else if (e.deltaMode === 2) d *= window.innerHeight;
+      sTarget = Math.min(Math.max(sTarget + d, 0), maxScroll());
+      requestTick();
+    }, { passive: false });
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!(smoothOn && Math.abs(sTarget - sCurrent) > 0.5)) {
+      if (Math.abs(window.pageYOffset - sCurrent) > 2) {
+        sTarget = sCurrent = window.pageYOffset;
+      }
+    }
+    requestTick();
+  }, { passive: true });
+
+  window.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowUp' || k === 'ArrowDown' || k === 'PageUp' || k === 'PageDown' ||
+        k === 'Home' || k === 'End' || k === ' ') {
+      sTarget = sCurrent = window.pageYOffset;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', function () {
+    sTarget = sCurrent = window.pageYOffset;
+    lastScroll = -1;
+    requestTick();
+  });
+
+  updateParallax();
+})();
+</script>
+</body>
+</html>

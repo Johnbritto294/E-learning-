@@ -1,0 +1,3630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stackly - Learn New Skills for a Better Future</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    
+    html {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-text-size-adjust: 100%;
+      touch-action: pan-y;
+    }
+body {
+      overflow-x: hidden;
+      overflow-x: clip;
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+
+      font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    html.menu-locked {
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar-wrapper {
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #f1f5f9;
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1320px;
+      width: 100%;
+      height: 86px;
+      position: relative;
+      margin: 0 auto;
+      padding: 0 40px;
+      background: #ffffff;
+      gap: 20px;
+    }
+
+    .navbar__logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar__logo img {
+      width: 210px;
+      height: 70px;
+      opacity: 1;
+      transform: none;
+      display: block;
+    }
+
+    .navbar__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 9px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .navbar__toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: #111827;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .navbar.menu-open .navbar__toggle span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        --navbar-h: 68px;
+        flex-wrap: nowrap;
+        height: var(--navbar-h);
+        min-height: var(--navbar-h);
+        padding: 12px 20px;
+      }
+
+      .navbar__logo img {
+        width: 156px;
+        height: 52px;
+      }
+
+      .navbar__toggle {
+        display: flex;
+      }
+
+      .navbar .navbar__menu {
+        display: none;
+      }
+
+      .navbar.menu-open .navbar__menu {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        height: calc(100vh - var(--navbar-h));
+        height: calc(100dvh - var(--navbar-h));
+        padding: 16px 20px 24px;
+        background: #ffffff;
+        border-top: 1px solid #f1f5f9;
+        box-shadow: 0 24px 48px rgba(15, 23, 42, 0.14);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        z-index: 1001;
+      }
+
+      .navbar.menu-open .navbar__links {
+        display: flex;
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+
+      .navbar.menu-open .navbar__links li,
+      .navbar.menu-open .navbar__links a {
+        display: block;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__links a {
+        padding: 14px 0;
+        font-size: 16px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .navbar.menu-open .navbar__right {
+        display: flex;
+        order: 4;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 18px 0 4px;
+        margin-top: 4px;
+      }
+
+      .navbar.menu-open .navbar__right .navbar__search {
+        display: flex;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right .navbar__search input {
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right > a {
+        display: block;
+        width: 100%;
+      }
+
+      .navbar.menu-open .navbar__right .btn-login,
+      .navbar.menu-open .navbar__right .btn-signup {
+        width: 100%;
+        padding: 12px 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        --navbar-h: 62px;
+      }
+
+      .navbar__logo img {
+        width: 138px;
+        height: 46px;
+      }
+    }
+
+    .navbar__menu {
+      display: contents;
+    }
+
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .navbar__links a {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #111827;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .navbar__links a:hover {
+      color: #0066ff;
+    }
+
+    .navbar__links a.active {
+      color: #0066ff;
+    }
+
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .navbar__search {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 9999px;
+      padding: 8px 18px;
+      gap: 10px;
+      width: 250px;
+    }
+
+    .navbar__search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 13px;
+      color: #334155;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .navbar__search input::placeholder {
+      color: #94a3b8;
+    }
+
+    .navbar__search svg {
+      flex-shrink: 0;
+      color: #64748b;
+    }
+
+    .btn-login {
+      padding: 8px 22px;
+      border: 1px solid #94a3b8;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1e293b;
+      background: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-login:hover {
+      border-color: #0066ff;
+      color: #0066ff;
+    }
+
+    .btn-signup {
+      padding: 9px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background: #0066ff;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-signup:hover {
+      background: #0052cc;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero-wrapper {
+      background: #f1f7fe;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      min-height: 460px;
+    }
+
+    .hero__content {
+      flex: 1.1;
+      max-width: 530px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+      color: #0066ff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 18px;
+      border-radius: 9999px;
+      border: 1px solid rgba(0, 102, 255, 0.2);
+      margin-bottom: 24px;
+      width: fit-content;
+      letter-spacing: -0.1px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.08);
+      animation: heroBadgeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero__badge::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+      animation: badgeShimmer 3.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero__heading {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #0f172a;
+      margin-bottom: 20px;
+      letter-spacing: -0.7px;
+      animation: heroTextUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }
+
+    .hero__heading span {
+      background: linear-gradient(120deg, #0066ff 0%, #0ea5e9 45%, #0047b3 90%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShine 4.5s ease infinite;
+      display: inline-block;
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    .hero__description {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #475569;
+      margin-bottom: 30px;
+      max-width: 440px;
+      animation: heroTextUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    .hero__buttons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 44px;
+      animation: heroTextUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+    }
+
+    .btn-explore {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 26px;
+      background: #0066ff;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid #0066ff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 14px rgba(0, 102, 255, 0.22);
+    }
+
+    .btn-explore:hover {
+      background: #0052cc;
+      border-color: #0052cc;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0, 102, 255, 0.35);
+    }
+
+    .btn-watch {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 26px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      color: #0066ff;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid #93c5fd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-watch:hover {
+      background: rgba(0, 102, 255, 0.08);
+      border-color: #0066ff;
+      transform: translateY(-2px);
+    }
+
+    .hero__stats {
+      display: flex;
+      align-items: flex-start;
+      gap: 52px;
+      animation: heroTextUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+    }
+
+    .hero__stat {
+      transition: transform 0.25s ease;
+    }
+
+    .hero__stat:hover {
+      transform: translateY(-3px);
+    }
+
+    .hero__stat h3 {
+      font-size: 34px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .hero__stat p {
+      font-size: 13.5px;
+      color: #475569;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Hero image side - moved up and animated */
+    .hero__image {
+      flex: 1.35;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      min-width: 0;
+      align-self: flex-end;
+      position: relative;
+      margin-top: -36px;
+      margin-bottom: 0;
+      z-index: 1;
+    }
+
+    .hero__image::before {
+      content: '';
+      position: absolute;
+      top: 15%;
+      right: 8%;
+      width: 420px;
+      height: 420px;
+      max-width: 85%;
+      max-height: 85%;
+      background: radial-gradient(circle, rgba(0, 102, 255, 0.16) 0%, rgba(56, 189, 248, 0.10) 45%, transparent 70%);
+      filter: blur(45px);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: ambientPulse 5s ease-in-out infinite alternate;
+    }
+
+    .hero__image img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: bottom right;
+      vertical-align: bottom;
+      margin-bottom: 0;
+      position: relative;
+      z-index: 1;
+      transform: translateY(-22px);
+      animation: heroFloat 5.5s ease-in-out infinite;
+      filter: drop-shadow(0 14px 35px rgba(0, 102, 255, 0.12));
+    }
+
+    /* Hero Keyframe Animations */
+    @keyframes heroFloat {
+      0%, 100% {
+        transform: translateY(-22px);
+      }
+      50% {
+        transform: translateY(-38px);
+      }
+    }
+
+    @keyframes heroFloatMobile {
+      0%, 100% {
+        transform: translateY(-10px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes ambientPulse {
+      0% {
+        transform: scale(0.92);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1.1);
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes heroBadgeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-14px) scale(0.94);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes badgeShimmer {
+      0%, 25% {
+        left: -100%;
+      }
+      65%, 100% {
+        left: 200%;
+      }
+    }
+
+    @keyframes heroTextUp {
+      0% {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes gradientShine {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .navbar {
+        padding: 14px 24px;
+      }
+
+      .navbar__links {
+        gap: 20px;
+      }
+
+      .navbar__search {
+        min-width: 180px;
+      }
+
+      .hero {
+        padding: 40px 24px 0;
+        flex-direction: column;
+        align-items: center;
+        min-height: auto;
+      }
+
+      .hero__content {
+        text-align: center;
+        max-width: 600px;
+        padding-bottom: 40px;
+      }
+
+      .hero__description {
+        max-width: 100%;
+      }
+
+      .hero__buttons {
+        justify-content: center;
+      }
+
+      .hero__stats {
+        justify-content: center;
+      }
+
+      .hero__image {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        margin-top: -10px;
+      }
+
+      .hero__image img {
+        max-width: 500px;
+        transform: translateY(-10px);
+        animation: heroFloatMobile 4.5s ease-in-out infinite;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar__links {
+        display: none;
+      }
+
+      .navbar__search {
+        display: none;
+      }
+
+      .hero__heading {
+        font-size: 30px;
+      }
+
+      .hero__stats {
+        gap: 28px;
+      }
+
+      .hero__stat h3 {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 12px 16px;
+      }
+
+      .hero {
+        padding: 28px 16px 0;
+      }
+
+      .hero__heading {
+        font-size: 26px;
+      }
+
+      .hero__buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .hero__stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+
+    /* ===== POPULAR CATEGORIES SECTION ===== */
+    .categories-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 64px 0 72px;
+    }
+
+    .categories-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .categories-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 30px;
+      letter-spacing: -0.5px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    .category-card {
+      background: #f7f9fa;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-radius: 12px;
+      padding: 24px 12px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 144px;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
+    .category-card:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -4px rgba(0, 0, 0, 0.06);
+      border-color: #e5e7eb;
+    }
+
+    .category-icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .category-icon svg {
+      width: 100%;
+      height: 100%;
+      max-width: 44px;
+      max-height: 44px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .category-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+    }
+
+    @media (max-width: 1100px) {
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .categories-section {
+        padding: 40px 0 50px;
+      }
+      .categories-container {
+        padding: 0 20px;
+      }
+      .categories-title {
+        font-size: 24px;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+    }
+
+    /* ===== MOST POPULAR COURSES SECTION ===== */
+    .courses-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 20px 0 80px;
+    }
+
+    .courses-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .courses-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 30px;
+      letter-spacing: -0.5px;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px 24px;
+    }
+
+    .course-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
+      border-color: #cbd5e1;
+    }
+
+    .course-card__thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #f1f5f9;
+    }
+
+    .course-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .course-card:hover .course-card__thumb img {
+      transform: scale(1.02);
+    }
+
+    .course-card__body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .course-card__title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .course-card__subtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 14px;
+      font-weight: 400;
+    }
+
+    .course-card__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .course-card__rating {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .course-card__star {
+      color: #f59e0b;
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .course-card__duration {
+      font-size: 12px;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    .course-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+
+    .course-card__price {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+    }
+
+    .course-card__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #2563eb;
+      background: transparent;
+      border: 1px solid #93c5fd;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .course-card__btn:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #1d4ed8;
+    }
+
+    @media (max-width: 1024px) {
+      .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .courses-section {
+        padding: 10px 0 60px;
+      }
+      .courses-container {
+        padding: 0 20px;
+      }
+      .courses-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    /* ===== WHY CHOOSE EDUNEXT SECTION ===== */
+    .features-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 70px 0 65px;
+    }
+
+    .features-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .features-header {
+      margin-bottom: 50px;
+    }
+
+    .features-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 14px;
+    }
+
+    .features-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #334155;
+      max-width: 620px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .feature-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .feature-icon-wrapper svg {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+
+    .feature-item h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .feature-item p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #475569;
+    }
+
+    /* ===== HOW IT WORKS SECTION ===== */
+    .how-it-works-section {
+      width: 100%;
+      background: #f7fbff;
+      padding: 70px 0 85px;
+    }
+
+    .how-it-works-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .how-it-works-header {
+      margin-bottom: 55px;
+    }
+
+    .how-it-works-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 14px;
+    }
+
+    .how-it-works-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #334155;
+      max-width: 620px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .step-icon-wrapper {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      font-size: 32px;
+    }
+
+    .step-icon-wrapper svg {
+      width: 40px;
+      height: 40px;
+      display: block;
+    }
+
+    .step-item h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .step-item p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #475569;
+    }
+
+    /* Responsive for features & how it works */
+    @media (max-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .features-section,
+      .how-it-works-section {
+        padding: 50px 0;
+      }
+
+      .features-container,
+      .how-it-works-container {
+        padding: 0 20px;
+      }
+
+      .features-header,
+      .how-it-works-header {
+        text-align: center;
+        margin-bottom: 35px;
+      }
+
+      .features-title,
+      .how-it-works-title {
+        font-size: 26px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .feature-item {
+        align-items: center;
+        text-align: center;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    /* ===== MEET OUR EXPERT INSTRUCTORS SECTION ===== */
+    .instructors-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 70px 0 85px;
+    }
+
+    .instructors-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .instructors-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      gap: 20px;
+    }
+
+    .instructors-header__text {
+      max-width: 600px;
+    }
+
+    .instructors-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 12px;
+    }
+
+    .instructors-subtitle {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    .instructors-view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0066ff;
+      text-decoration: none;
+      white-space: nowrap;
+      margin-top: 10px;
+      transition: color 0.2s;
+    }
+
+    .instructors-view-all:hover {
+      color: #0052cc;
+      text-decoration: underline;
+    }
+
+    .instructors-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .instructor-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .instructor-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px -4px rgba(15, 23, 42, 0.12);
+      border-color: #94a3b8;
+    }
+
+    .instructor-card__thumb {
+      width: 140px;
+      height: 140px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f1f5f9;
+    }
+
+    .instructor-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .instructor-card__info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .instructor-card__name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .instructor-card__role {
+      font-size: 14px;
+      color: #475569;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    .instructor-card__rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .instructor-card__star {
+      color: #f59e0b;
+      font-size: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .instructors-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .instructors-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .instructors-section {
+        padding: 50px 0;
+      }
+
+      .instructors-container {
+        padding: 0 20px;
+      }
+
+      .instructors-title {
+        font-size: 26px;
+      }
+
+      .instructor-card {
+        padding: 16px;
+        gap: 16px;
+      }
+
+      .instructor-card__thumb {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    /* ===== WHAT OUR STUDENTS SAY (TESTIMONIALS) SECTION ===== */
+    .testimonials-section {
+      width: 100%;
+      background: #f7fbff;
+      padding: 75px 0 85px;
+    }
+
+    .testimonials-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .testimonials-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 20px;
+    }
+
+    .testimonials-header__text {
+      max-width: 600px;
+    }
+
+    .testimonials-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 12px;
+    }
+
+    .testimonials-subtitle {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    .testimonials-view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0066ff;
+      text-decoration: none;
+      white-space: nowrap;
+      margin-top: 10px;
+      transition: color 0.2s;
+    }
+
+    .testimonials-view-all:hover {
+      color: #0052cc;
+      text-decoration: underline;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 32px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-height: 200px;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.1);
+    }
+
+    .testimonial-quote {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #1e293b;
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .testimonial-author__left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #e2e8f0;
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .testimonial-author__info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .testimonial-author__name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    .testimonial-author__role {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .testimonial-stars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      color: #f59e0b;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 1024px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .testimonials-section {
+        padding: 50px 0;
+      }
+
+      .testimonials-container {
+        padding: 0 20px;
+      }
+
+      .testimonials-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .testimonials-title {
+        font-size: 26px;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+    }
+
+    /* ===== SPECIAL OFFERS BANNER SECTION ===== */
+    .offer-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 30px 0 65px;
+    }
+
+    .offer-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .offer-floating-badge {
+      display: inline-block;
+      background: #0066ff;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 24px;
+      border-radius: 9999px;
+      margin-bottom: -18px;
+      margin-left: 20px;
+      position: relative;
+      z-index: 10;
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 102, 255, 0.25);
+    }
+
+    .offer-banner {
+      background: #082d62;
+      border-radius: 16px;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+    }
+
+    .offer-content {
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+
+    .offer-text-block {
+      max-width: 320px;
+    }
+
+    .offer-tagline {
+      font-size: 13px;
+      color: #93c5fd;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .offer-headline {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fbbf24;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .offer-subtext {
+      font-size: 13px;
+      color: #cbd5e1;
+      font-weight: 400;
+    }
+
+    .offer-countdown {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .countdown-box {
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-radius: 12px;
+      width: 64px;
+      height: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+    }
+
+    .countdown-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .countdown-label {
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    .offer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fbbf24;
+      color: #0f172a;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .offer-btn:hover {
+      background: #f59e0b;
+      transform: translateY(-2px);
+    }
+
+    .offer-student-image {
+      position: absolute;
+      right: 28px;
+      bottom: 0;
+      height: calc(100% - 12px);
+      max-height: 250px;
+      width: auto;
+      object-fit: contain;
+      object-position: bottom right;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ===== FREE LEARNING RESOURCES SECTION ===== */
+    .resources-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 20px 0 90px;
+    }
+
+    .resources-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .resources-header {
+      margin-bottom: 36px;
+    }
+
+    .resources-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 12px;
+    }
+
+    .resources-subtitle {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .resource-card {
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Card background colors matching exact tints */
+    .resource-card--ebooks {
+      background: #ecfdf5;
+      border: 1px solid #d1fae5;
+    }
+
+    .resource-card--guides {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .resource-card--videos {
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+    }
+
+    .resource-icon-wrapper {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 30px;
+    }
+
+    .resource-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .resource-info h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+      letter-spacing: -0.2px;
+    }
+
+    .resource-info p {
+      font-size: 13.5px;
+      color: #475569;
+    }
+
+    /* Responsive for offer & resources */
+    @media (max-width: 1024px) {
+      .offer-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 36px 28px;
+      }
+
+      .offer-student-image {
+        display: none;
+      }
+
+      .resources-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .offer-section,
+      .resources-section {
+        padding: 40px 0;
+      }
+
+      .offer-container,
+      .resources-container {
+        padding: 0 20px;
+      }
+
+      .offer-content {
+        gap: 20px;
+      }
+
+      .offer-countdown {
+        gap: 8px;
+      }
+
+      .countdown-box {
+        width: 54px;
+        height: 60px;
+      }
+
+      .countdown-number {
+        font-size: 20px;
+      }
+
+      .resources-title {
+        font-size: 26px;
+      }
+
+      .resources-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== TRUSTED BY COMPANIES SECTION ===== */
+    .companies-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 60px 0 85px;
+    }
+
+    .companies-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .companies-header {
+      margin-bottom: 50px;
+    }
+
+    .companies-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+      margin-bottom: 12px;
+    }
+
+    .companies-subtitle {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    .companies-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 50px;
+      column-gap: 60px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .company-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 70px;
+    }
+
+    .company-logo img {
+      max-width: 220px;
+      max-height: 58px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: grayscale(0%);
+      transition: transform 0.2s ease;
+    }
+
+    .company-logo:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact-section {
+      width: 100%;
+      background: #f7fbff;
+      padding: 75px 0 85px;
+    }
+
+    .contact-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 60px;
+      align-items: flex-start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 30px;
+      letter-spacing: -0.2px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .contact-icon-wrapper {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 24px;
+    }
+
+    .contact-item-content h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+
+    .contact-item-content p {
+      font-size: 13.5px;
+      color: #475569;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13.5px;
+      color: #1e293b;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-control:focus {
+      border-color: #0066ff;
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .btn-send-message {
+      width: 100%;
+      padding: 14px 24px;
+      background: #0066ff;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      font-family: 'Inter', sans-serif;
+      margin-top: 4px;
+    }
+
+    .btn-send-message:hover {
+      background: #0052cc;
+    }
+
+    .btn-send-message:active {
+      transform: scale(0.99);
+    }
+
+    /* Responsive for companies & contact */
+    @media (max-width: 900px) {
+      .companies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 36px;
+      }
+
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .companies-section,
+      .contact-section {
+        padding: 45px 0;
+      }
+
+      .companies-container,
+      .contact-container {
+        padding: 0 20px;
+      }
+
+      .companies-title {
+        font-size: 26px;
+      }
+
+      .companies-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== FOOTER SECTION ===== */
+    .footer {
+      background: #091e3e;
+      color: #94a3b8;
+      width: 100%;
+      padding: 70px 0 30px;
+    }
+
+    .footer-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr 1fr 1.6fr;
+      gap: 48px;
+      margin-bottom: 55px;
+    }
+
+    /* Brand Column */
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-tagline {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      max-width: 280px;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .social-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .social-icon-btn:hover {
+      background: #0066ff;
+      border-color: #0066ff;
+      transform: translateY(-2px);
+    }
+
+    .social-icon-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Column Headings & Links */
+    .footer-col h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 22px;
+      letter-spacing: -0.2px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .footer-links li a {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: color 0.2s, padding-left 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links li a:hover {
+      color: #ffffff;
+      padding-left: 4px;
+    }
+
+    .link-arrow {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* Newsletter Column */
+    .footer-newsletter h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+    }
+
+    .footer-newsletter p {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #cbd5e1;
+      margin-bottom: 22px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 3px;
+      max-width: 360px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #1e293b;
+      font-family: 'Inter', sans-serif;
+      min-width: 0;
+    }
+
+    .newsletter-form input::placeholder {
+      color: #94a3b8;
+    }
+
+    .newsletter-btn {
+      background: #0066ff;
+      border: none;
+      border-radius: 6px;
+      width: 44px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .newsletter-btn:hover {
+      background: #0052cc;
+    }
+
+    .newsletter-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Footer Bottom Row */
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: #94a3b8;
+    }
+
+    .footer-legal {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-legal a:hover {
+      color: #ffffff;
+    }
+
+    /* Footer Responsive */
+    @media (max-width: 1024px) {
+      .footer-main {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer {
+        padding: 50px 0 25px;
+      }
+
+      .footer-container {
+        padding: 0 20px;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+    }
+  </style>
+<style>
+/* ===== PREMIUM SCROLL (reveals / parallax) ===== */
+html { scroll-behavior: smooth; }
+
+.psr-anim {
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-anim.psr-img {
+  transition: opacity .9s cubic-bezier(.22, 1, .36, 1), transform 1.1s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-hide {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+}
+.psr-img.psr-hide {
+  transform: scale(1.06);
+}
+
+.psr-hero > * {
+  transition: opacity .75s cubic-bezier(.22, 1, .36, 1), transform .75s cubic-bezier(.22, 1, .36, 1);
+}
+.psr-hero.psr-hide > * {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.psr-par { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .psr-anim, .psr-hero > * { transition: none !important; }
+  .psr-hide, .psr-hero.psr-hide > * { opacity: 1 !important; transform: none !important; }
+  .psr-par { will-change: auto; }
+}
+</style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <div class="navbar-wrapper">
+    <nav class="navbar">
+      <div class="navbar__logo">
+        <a href="#">
+          <img src="images/305454e6d60d6ab9bc238ee3266769bbb336f82f.webp" alt="Stackly" />
+        </a>
+      </div>
+
+      <div class="navbar__menu">
+        <ul class="navbar__links">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="instructors.html">Instructors</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <div class="navbar__right">
+          <div class="navbar__search">
+            <input type="text" placeholder="Search for products, farmers..." onkeydown="if(event.key==='Enter'){window.location.href='404.html';}" />
+            <a href="404.html" aria-label="Search" style="display:inline-flex;align-items:center;color:inherit;text-decoration:none;cursor:pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg></a>
+          </div>
+          <a href="login.html" style="text-decoration:none;"><button class="btn-login">Login</button></a>
+          <a href="signup.html" style="text-decoration:none;"><button class="btn-signup">Sign Up</button></a>
+        </div>
+      </div>
+
+      <button class="navbar__toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <div class="hero-wrapper">
+    <section class="hero">
+      <div class="hero__content">
+        <div class="hero__badge">Your Learning Journey Starts Here</div>
+
+        <h1 class="hero__heading">
+          Learn New Skills<br />
+          for a <span>Better Future</span>
+        </h1>
+
+        <p class="hero__description">
+          Access high-quality courses, expert instructors and flexible
+          learning — anytime, anywhere. Build your skills and achieve
+          your dreams with EduNext.
+        </p>
+
+        <div class="hero__buttons">
+          <a href="404.html" style="text-decoration:none;"><button class="btn-explore">Explore Courses</button></a>
+          <a href="404.html" style="text-decoration:none;"><button class="btn-watch">Watch Video</button></a>
+        </div>
+
+        <div class="hero__stats">
+          <div class="hero__stat">
+            <h3>1M+</h3>
+            <p>Happy Learners</p>
+          </div>
+          <div class="hero__stat">
+            <h3>500+</h3>
+            <p>Expert Instructors</p>
+          </div>
+          <div class="hero__stat">
+            <h3>1000+</h3>
+            <p>Online Courses</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__image">
+        <img src="images/home_hero_aligned.webp" alt="Student learning online" />
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== POPULAR CATEGORIES SECTION ===== -->
+  <section class="categories-section">
+    <div class="categories-container">
+      <h2 class="categories-title">Explore Popular Categories</h2>
+      
+      <div class="categories-grid">
+        <!-- 1. Programming & Development -->
+        <a href="#" class="category-card">
+          <div class="category-icon">
+            <svg width="44" height="44" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Rounded speech bubble shape in vibrant blue with bottom-left tail -->
+              <path d="M12 9H42C46.4183 9 50 12.5817 50 17V33C50 37.4183 46.4183 41 42 41H20L10 47V41C6.68629 41 4 38.3137 4 35V17C4 12.5817 7.58172 9 12 9Z" fill="#0066FF"/>
+              <!-- Code brackets and slash inside -->
+              <path d="M19 21L14 26L19 31" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M35 21L40 26L35 31" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M29 19L25 33" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="category-name">Programming<br/>& Development</span>
+        </a>
+
+        <!-- 2. Design & Creative -->
+        <a href="#" class="category-card">
+          <div class="category-icon">
+            <svg width="44" height="44" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Overlapping squares -->
+              <rect x="6" y="16" width="24" height="24" rx="6" fill="#FF0080" fill-opacity="0.25"/>
+              <rect x="14" y="8" width="24" height="24" rx="6" fill="#FF0080" fill-opacity="0.4"/>
+              <!-- Paint brush pen tip -->
+              <path d="M34 10L44 20L28 36L18 36L18 26L34 10Z" fill="#FF0080"/>
+              <circle cx="21" cy="33" r="2.5" fill="white"/>
+              <path d="M32 12L42 22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="category-name">Design<br/>& Creative</span>
+        </a>
+
+        <!-- 3. Business & Marketing -->
+        <a href="#" class="category-card">
+          <div class="category-icon">
+            <svg width="44" height="44" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Modern dual office buildings / growth towers -->
+              <!-- Left lower tower -->
+              <rect x="7" y="18" width="16" height="28" rx="4" fill="#00B074" fill-opacity="0.35"/>
+              <!-- Main tall tower -->
+              <rect x="25" y="8" width="22" height="38" rx="5" fill="#00B074"/>
+              <!-- Left tower windows -->
+              <circle cx="12" cy="24" r="1.8" fill="#00B074"/>
+              <circle cx="18" cy="24" r="1.8" fill="#00B074"/>
+              <circle cx="12" cy="31" r="1.8" fill="#00B074"/>
+              <circle cx="18" cy="31" r="1.8" fill="#00B074"/>
+              <circle cx="12" cy="38" r="1.8" fill="#00B074"/>
+              <circle cx="18" cy="38" r="1.8" fill="#00B074"/>
+              <!-- Right tower windows -->
+              <circle cx="32" cy="15" r="2" fill="white"/>
+              <circle cx="40" cy="15" r="2" fill="white"/>
+              <circle cx="32" cy="23" r="2" fill="white"/>
+              <circle cx="40" cy="23" r="2" fill="white"/>
+              <circle cx="32" cy="31" r="2" fill="white"/>
+              <circle cx="40" cy="31" r="2" fill="white"/>
+              <!-- Doorway -->
+              <rect x="33" y="38" width="6" height="8" rx="1.5" fill="white"/>
+            </svg>
+          </div>
+          <span class="category-name">Business<br/>& Marketing</span>
+        </a>
+
+        <!-- 4. Data Science & Analytics -->
+        <a href="#" class="category-card">
+          <div class="category-icon">
+            <svg width="44" height="44" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Rounded hexagon background -->
+              <path d="M27 4L47 15.5V38.5L27 50L7 38.5V15.5L27 4Z" fill="#7C3AED" rx="5"/>
+              <!-- Stepped bar chart columns inside hexagon -->
+              <rect x="15" y="27" width="5.5" height="13" rx="2" fill="white"/>
+              <rect x="24.25" y="20" width="5.5" height="20" rx="2" fill="white"/>
+              <rect x="33.5" y="13" width="5.5" height="27" rx="2" fill="white"/>
+            </svg>
+          </div>
+          <span class="category-name">Data Science<br/>& Analytics</span>
+        </a>
+
+        <!-- 5. Language Learning -->
+        <a href="#" class="category-card">
+          <div class="category-icon">
+            <svg width="44" height="44" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Globe -->
+              <circle cx="27" cy="27" r="20" fill="#EA580C"/>
+              <!-- Latitudes & longitudes -->
+              <ellipse cx="27" cy="27" rx="10" ry="20" stroke="white" stroke-width="2" fill="none"/>
+              <line x1="7" y1="27" x2="47" y2="27" stroke="white" stroke-width="2"/>
+              <path d="M12 17C16 20 22 21 27 21C32 21 38 20 42 17" stroke="white" stroke-width="1.8" fill="none"/>
+              <path d="M12 37C16 34 22 33 27 33C32 33 38 34 42 37" stroke="white" stroke-width="1.8" fill="none"/>
+              <!-- Graduation cap on top-right -->
+              <path d="M37 6L49 11L37 16L25 11L37 6Z" fill="#C2410C" stroke="white" stroke-width="1.5"/>
+              <path d="M47 13.5V18" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="category-name">Language<br/>Learning</span>
+        </a>
+
+        <!-- 6. Personal Development -->
+        <a href="#" class="category-card">
+          <div class="category-icon">
+            <svg width="44" height="44" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Circular background badge -->
+              <rect x="5" y="5" width="44" height="44" rx="12" fill="#009688" fill-opacity="0.12"/>
+              <!-- User figure -->
+              <circle cx="27" cy="18" r="8" fill="#009688"/>
+              <path d="M13 41C13 33.268 19.268 27 27 27C34.732 27 41 33.268 41 41" stroke="#009688" stroke-width="4.5" stroke-linecap="round"/>
+              <!-- Sparkle / star badge top right -->
+              <path d="M39 10L40.5 14.5L45 16L40.5 17.5L39 22L37.5 17.5L33 16L37.5 14.5L39 10Z" fill="#00B074"/>
+            </svg>
+          </div>
+          <span class="category-name">Personal<br/>Development</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MOST POPULAR COURSES SECTION ===== -->
+  <section class="courses-section">
+    <div class="courses-container">
+      <h2 class="courses-title">Most Popular Courses</h2>
+
+      <div class="courses-grid">
+        <!-- 1. Web Development -->
+        <div class="course-card">
+          <div class="course-card__thumb">
+            <img src="images/50a1524ca175a2ad06b60e324161987cf4d3802b.webp" alt="Web Development" />
+          </div>
+          <div class="course-card__body">
+            <h3 class="course-card__title">Web Development</h3>
+            <p class="course-card__subtitle">Full Stack (MERN)</p>
+            <div class="course-card__meta">
+              <div class="course-card__rating">
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+              </div>
+              <span class="course-card__duration">12h 30m</span>
+            </div>
+            <div class="course-card__footer">
+              <span class="course-card__price">₹4,999</span>
+              <a href="404.html" class="course-card__btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. UI/UX Design -->
+        <div class="course-card">
+          <div class="course-card__thumb">
+            <img src="images/e87bc89213d9b80bd3840bcbe44bbbb4aca552c4.webp" alt="UI/UX Design" />
+          </div>
+          <div class="course-card__body">
+            <h3 class="course-card__title">UI/UX Design</h3>
+            <p class="course-card__subtitle">From Zero to Hero</p>
+            <div class="course-card__meta">
+              <div class="course-card__rating">
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+              </div>
+              <span class="course-card__duration">10h 45m</span>
+            </div>
+            <div class="course-card__footer">
+              <span class="course-card__price">₹3,999</span>
+              <a href="404.html" class="course-card__btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Data Science -->
+        <div class="course-card">
+          <div class="course-card__thumb">
+            <img src="images/899669725097b6d117aed4f7abada713f4a86b40.webp" alt="Data Science" />
+          </div>
+          <div class="course-card__body">
+            <h3 class="course-card__title">Data Science</h3>
+            <p class="course-card__subtitle">with Python</p>
+            <div class="course-card__meta">
+              <div class="course-card__rating">
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+              </div>
+              <span class="course-card__duration">15h 20m</span>
+            </div>
+            <div class="course-card__footer">
+              <span class="course-card__price">₹4,999</span>
+              <a href="404.html" class="course-card__btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Digital Marketing -->
+        <div class="course-card">
+          <div class="course-card__thumb">
+            <img src="images/41a401ed9b02defedd3b2f25d8dbb4b832cf8971.webp" alt="Digital Marketing" />
+          </div>
+          <div class="course-card__body">
+            <h3 class="course-card__title">Digital Marketing</h3>
+            <p class="course-card__subtitle">Complete Guide</p>
+            <div class="course-card__meta">
+              <div class="course-card__rating">
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+              </div>
+              <span class="course-card__duration">11h 15m</span>
+            </div>
+            <div class="course-card__footer">
+              <span class="course-card__price">₹3,999</span>
+              <a href="404.html" class="course-card__btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Spoken English -->
+        <div class="course-card">
+          <div class="course-card__thumb">
+            <img src="images/edd7a51baab05afb3d2c15b60e1b1aca48848f12.webp" alt="Spoken English" />
+          </div>
+          <div class="course-card__body">
+            <h3 class="course-card__title">Spoken English</h3>
+            <p class="course-card__subtitle">Build Confidence</p>
+            <div class="course-card__meta">
+              <div class="course-card__rating">
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+              </div>
+              <span class="course-card__duration">8h 30m</span>
+            </div>
+            <div class="course-card__footer">
+              <span class="course-card__price">₹2,999</span>
+              <a href="404.html" class="course-card__btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Bpo -->
+        <div class="course-card">
+          <div class="course-card__thumb">
+            <img src="images/93a5de7cee8a06a0672473c5ee6bd241ab0a300e.webp" alt="Bpo" />
+          </div>
+          <div class="course-card__body">
+            <h3 class="course-card__title">Bpo</h3>
+            <p class="course-card__subtitle">voice process</p>
+            <div class="course-card__meta">
+              <div class="course-card__rating">
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+                <span class="course-card__star">★</span>
+              </div>
+              <span class="course-card__duration">15h 20m</span>
+            </div>
+            <div class="course-card__footer">
+              <span class="course-card__price">₹1,999</span>
+              <a href="404.html" class="course-card__btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE EDUNEXT SECTION ===== -->
+  <section class="features-section">
+    <div class="features-container">
+      <div class="features-header">
+        <h2 class="features-title">Why Choose EduNext?</h2>
+        <p class="features-subtitle">
+          We're not just an online learning platform. We're your learning partner for life. Here's what makes us different
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- 1. Expert Instructors -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            👨‍🏫
+          </div>
+          <h3>Expert Instructors</h3>
+          <p>Learn from industry professionals</p>
+        </div>
+
+        <!-- 2. Flexible Learning -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            🎓
+          </div>
+          <h3>Flexible Learning</h3>
+          <p>Study at your own pace</p>
+        </div>
+
+        <!-- 3. Lifetime Access -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 25C7.58172 25 4 21.4183 4 17C4 12.5817 7.58172 9 12 9C15.8 9 18.5 12.5 20 17C21.5 12.5 24.2 9 28 9C32.4183 9 36 12.5817 36 17C36 21.4183 32.4183 25 28 25C24.2 25 21.5 21.5 20 17C18.5 21.5 15.8 25 12 25Z" stroke="#475569" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Lifetime Access</h3>
+          <p>Revisit anytime, forever</p>
+        </div>
+
+        <!-- 4. Certificate of Completion -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            📜
+          </div>
+          <h3>Certificate of Completion</h3>
+          <p>Showcase your skills</p>
+        </div>
+
+        <!-- 5. Support 24/7 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            🎧
+          </div>
+          <h3>Support 24/7</h3>
+          <p>We're always here to help</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS SECTION ===== -->
+  <section class="how-it-works-section">
+    <div class="how-it-works-container">
+      <div class="how-it-works-header">
+        <h2 class="how-it-works-title">How It Works?</h2>
+        <p class="how-it-works-subtitle">
+          Getting started is easy. Follow these simple steps and begin your learning journey today.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <!-- 1. Sign Up -->
+        <div class="step-item">
+          <div class="step-icon-wrapper">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Soft blue circular person bust -->
+              <circle cx="24" cy="14" r="8" fill="#4B6B94"/>
+              <path d="M10 38C10 30.268 16.268 24 24 24C31.732 24 38 30.268 38 38V40H10V38Z" fill="#4B6B94"/>
+            </svg>
+          </div>
+          <h3>1. Sign Up</h3>
+          <p>Create your free account</p>
+        </div>
+
+        <!-- 2. Choose Course -->
+        <div class="step-item">
+          <div class="step-icon-wrapper">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Magnifying glass with metallic ring -->
+              <circle cx="20" cy="20" r="12" stroke="#475569" stroke-width="4.5" fill="#E2E8F0"/>
+              <path d="M29 29L40 40" stroke="#1E293B" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>2. Choose Course</h3>
+          <p>Browse & select your course</p>
+        </div>
+
+        <!-- 3. Learn -->
+        <div class="step-item">
+          <div class="step-icon-wrapper">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Sleek black play button triangle -->
+              <path d="M14 8L40 24L14 40V8Z" fill="#0F172A"/>
+            </svg>
+          </div>
+          <h3>3. Learn</h3>
+          <p>Watch, practice, complete</p>
+        </div>
+
+        <!-- 4. Get Certified -->
+        <div class="step-item">
+          <div class="step-icon-wrapper">
+            🎓
+          </div>
+          <h3>4. Get Certified</h3>
+          <p>Earn your certificate</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEET OUR EXPERT INSTRUCTORS SECTION ===== -->
+  <section class="instructors-section">
+    <div class="instructors-container">
+      <div class="instructors-header">
+        <div class="instructors-header__text">
+          <h2 class="instructors-title">Meet Our Expert Instructors</h2>
+          <p class="instructors-subtitle">
+            Learn from experienced professionals who are passionate about teaching.
+          </p>
+        </div>
+        <a href="404.html" class="instructors-view-all">
+          View All Instructors &rarr;
+        </a>
+      </div>
+
+      <div class="instructors-grid">
+        <!-- 1. Arun Kumar -->
+        <div class="instructor-card">
+          <div class="instructor-card__thumb">
+            <img src="images/5bac20ce7ffe58c030db32c41dbfdc547de79a69.webp" alt="Arun Kumar" />
+          </div>
+          <div class="instructor-card__info">
+            <h3 class="instructor-card__name">Arun Kumar</h3>
+            <p class="instructor-card__role">Full Stack Developer</p>
+            <div class="instructor-card__rating">
+              <span class="instructor-card__star">⭐</span>
+              <span>4.9 (2.1k)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Priya Sharma -->
+        <div class="instructor-card">
+          <div class="instructor-card__thumb">
+            <img src="images/f8f84b40f1055b095ffd80fc238bb439cd10e43f.webp" alt="Priya Sharma" />
+          </div>
+          <div class="instructor-card__info">
+            <h3 class="instructor-card__name">Priya Sharma</h3>
+            <p class="instructor-card__role">UI/UX Designer</p>
+            <div class="instructor-card__rating">
+              <span class="instructor-card__star">⭐</span>
+              <span>4.8 (1.8k)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Vikram Singh -->
+        <div class="instructor-card">
+          <div class="instructor-card__thumb">
+            <img src="images/479efaf02d895730902bf3e8586f77476fb89afe.webp" alt="Vikram Singh" />
+          </div>
+          <div class="instructor-card__info">
+            <h3 class="instructor-card__name">Vikram Singh</h3>
+            <p class="instructor-card__role">Data Scientist</p>
+            <div class="instructor-card__rating">
+              <span class="instructor-card__star">⭐</span>
+              <span>4.9 (1.3k)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Ananya Reddy -->
+        <div class="instructor-card">
+          <div class="instructor-card__thumb">
+            <img src="images/d9ed31b6413a921d9a72b6ab6210d9ca65939f06.webp" alt="Ananya Reddy" />
+          </div>
+          <div class="instructor-card__info">
+            <h3 class="instructor-card__name">Ananya Reddy</h3>
+            <p class="instructor-card__role">Digital Marketer</p>
+            <div class="instructor-card__rating">
+              <span class="instructor-card__star">⭐</span>
+              <span>4.7 (1.2k)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT OUR STUDENTS SAY (TESTIMONIALS) SECTION ===== -->
+  <section class="testimonials-section">
+    <div class="testimonials-container">
+      <div class="testimonials-header">
+        <div class="testimonials-header__text">
+          <h2 class="testimonials-title">What Our Students Say</h2>
+          <p class="testimonials-subtitle">
+            Real stories. Real results
+          </p>
+        </div>
+        <a href="404.html" class="testimonials-view-all">
+          View More Reviews &rarr;
+        </a>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- 1. Rahul S -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "EduNext helped me switch my career from a non-IT background to a software developer. The courses are amazing!"
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-author__left">
+              <div class="testimonial-avatar">
+                <img src="images/f5a1ffaca44f5be91833c4b430766fb4caaa32d9.webp" alt="Rahul S" />
+              </div>
+              <div class="testimonial-author__info">
+                <span class="testimonial-author__name">Rahul S</span>
+                <span class="testimonial-author__role">Full Stack Developer</span>
+              </div>
+            </div>
+            <div class="testimonial-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Sneha K -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "The UI/UX course was well-structured and easy to follow. I got my first job within 3 months!"
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-author__left">
+              <div class="testimonial-avatar">
+                <img src="images/f8f84b40f1055b095ffd80fc238bb439cd10e43f.webp" alt="Sneha K" />
+              </div>
+              <div class="testimonial-author__info">
+                <span class="testimonial-author__name">Sneha K</span>
+                <span class="testimonial-author__role">UI/UX Designer</span>
+              </div>
+            </div>
+            <div class="testimonial-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Karthik M -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "Very flexible learning platform. I could learn at my own pace and still get certified."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-author__left">
+              <div class="testimonial-avatar">
+                <img src="images/dab8e1abc758a3518dd45cfef6ced22c59cafb64.webp" alt="Karthik M" />
+              </div>
+              <div class="testimonial-author__info">
+                <span class="testimonial-author__name">Karthik M</span>
+                <span class="testimonial-author__role">Data Analyst</span>
+              </div>
+            </div>
+            <div class="testimonial-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPECIAL OFFERS BANNER SECTION ===== -->
+  <section class="offer-section">
+    <div class="offer-container">
+      <div class="offer-floating-badge">Special Offers</div>
+      <div class="offer-banner">
+        <div class="offer-content">
+          <div class="offer-text-block">
+            <p class="offer-tagline">Limited Time Offer!</p>
+            <h2 class="offer-headline">Get Up To 50% Off</h2>
+            <p class="offer-subtext">On All Courses, Learn More, Pay Less!</p>
+          </div>
+
+          <!-- Countdown timer -->
+          <div class="offer-countdown">
+            <div class="countdown-box">
+              <span class="countdown-number">12</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-number">08</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-number">24</span>
+              <span class="countdown-label">Mins</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-number">36</span>
+              <span class="countdown-label">Secs</span>
+            </div>
+          </div>
+
+          <a href="404.html" class="offer-btn">
+            Explore Now &rarr;
+          </a>
+        </div>
+
+        <!-- Student with blue folders cutout -->
+        <img class="offer-student-image" src="images/d23b0013240c85d3decac70fb94a3461f50ef9f0.webp" alt="Student holding notebooks" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FREE LEARNING RESOURCES SECTION ===== -->
+  <section class="resources-section">
+    <div class="resources-container">
+      <div class="resources-header">
+        <h2 class="resources-title">Free Learning Resources</h2>
+        <p class="resources-subtitle">
+          Browse our free resources to enhance your learning journey.
+        </p>
+      </div>
+
+      <div class="resources-grid">
+        <!-- 1. E-books -->
+        <a href="#" class="resource-card resource-card--ebooks">
+          <div class="resource-icon-wrapper">
+            📄
+          </div>
+          <div class="resource-info">
+            <h3>E-books</h3>
+            <p>Download free e-books</p>
+          </div>
+        </a>
+
+        <!-- 2. Study Guides -->
+        <a href="#" class="resource-card resource-card--guides">
+          <div class="resource-icon-wrapper">
+            📊
+          </div>
+          <div class="resource-info">
+            <h3>Study Guides</h3>
+            <p>Step by step guides</p>
+          </div>
+        </a>
+
+        <!-- 3. Video Tutorials -->
+        <a href="#" class="resource-card resource-card--videos">
+          <div class="resource-icon-wrapper">
+            🎥
+          </div>
+          <div class="resource-info">
+            <h3>Video Tutorials</h3>
+            <p>Quick learning tips</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUSTED BY COMPANIES SECTION ===== -->
+  <section class="companies-section">
+    <div class="companies-container">
+      <div class="companies-header">
+        <h2 class="companies-title">Trusted By 1000+ Companies & Organizations</h2>
+        <p class="companies-subtitle">
+          Our learners work at top companies around the world.
+        </p>
+      </div>
+
+      <div class="companies-grid">
+        <!-- 1. Microsoft -->
+        <div class="company-logo">
+          <img src="images/5f73cf34e31ffcb6d65fdc8bd1d9081bc7715518.webp" alt="Microsoft" />
+        </div>
+
+        <!-- 2. Amazon -->
+        <div class="company-logo">
+          <img src="images/9dbf019c92c91544ad3606094a4c331e18b96a62.webp" alt="Amazon" />
+        </div>
+
+        <!-- 3. Infosys -->
+        <div class="company-logo">
+          <img src="images/3f162d6d54aa71e4826af1b4c2a208887a36ebf2.webp" alt="Infosys" />
+        </div>
+
+        <!-- 4. Wipro -->
+        <div class="company-logo">
+          <img src="images/601c0a5c1ecdf1aba158c0cb8fb957b27c5d76b1.webp" alt="Wipro" />
+        </div>
+
+        <!-- 5. Accenture -->
+        <div class="company-logo">
+          <img src="images/a9535b99d9bbb99e0f85e8de362b028a8ac65cfa.webp" alt="Accenture" />
+        </div>
+
+        <!-- 6. IBM -->
+        <div class="company-logo">
+          <img src="images/9b6ebb772fca0942afe32a69cb182ad38381ac7c.webp" alt="IBM" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="contact-section">
+    <div class="contact-container">
+      <!-- Contact Info Left Column -->
+      <div class="contact-info">
+        <h3 class="contact-title">Contact Details:</h3>
+        
+        <div class="contact-list">
+          <!-- Email -->
+          <div class="contact-item">
+            <div class="contact-icon-wrapper">
+              ✉️
+            </div>
+            <div class="contact-item-content">
+              <h4>Email</h4>
+              <p>support@edunext.com</p>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="contact-item">
+            <div class="contact-icon-wrapper">
+              📞
+            </div>
+            <div class="contact-item-content">
+              <h4>Phone</h4>
+              <p>+91 98765 43120</p>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="contact-item">
+            <div class="contact-icon-wrapper">
+              📍
+            </div>
+            <div class="contact-item-content">
+              <h4>Location</h4>
+              <p>Coimbatore, Tamil Nadu, India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form Right Column -->
+      <form class="contact-form" onsubmit="event.preventDefault(); handleContactSubmit(this);">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contact-name">Name *</label>
+            <input type="text" id="contact-name" class="form-control" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email *</label>
+            <input type="email" id="contact-email" class="form-control" placeholder="Your email" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-message">Message *</label>
+          <textarea id="contact-message" class="form-control" placeholder="Your message..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-send-message">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER SECTION ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-main">
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <a href="#">
+              <img src="images/305454e6d60d6ab9bc238ee3266769bbb336f82f.webp" alt="Stackly" />
+            </a>
+          </div>
+          <p class="footer-tagline">
+            Connecting farmers and consumers for a healthier and greener tomorrow.
+          </p>
+          <div class="footer-socials">
+            <!-- Facebook -->
+            <a href="404.html" class="social-icon-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.52-.14-2.71-.14-2.73 0-4.79 1.66-4.79 4.8v2.7H7.5v4H10V22h4v-8.5z"/></svg>
+            </a>
+            <!-- Twitter / X -->
+            <a href="404.html" class="social-icon-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="404.html" class="social-icon-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <!-- YouTube -->
+            <a href="404.html" class="social-icon-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#"><span class="link-arrow">&gt;</span> Home</a></li>
+            <li><a href="about.html"><span class="link-arrow">&gt;</span> About Us</a></li>
+            <li><a href="services.html"><span class="link-arrow">&gt;</span> Services</a></li>
+            <li><a href="blog.html"><span class="link-arrow">&gt;</span> Blog</a></li>
+            <li><a href="instructors.html"><span class="link-arrow">&gt;</span> Instructors</a></li>
+            <li><a href="#"><span class="link-arrow">&gt;</span> Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Programming</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Design</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Business</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Data Science</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Language</a></li>
+            <li><a href="404.html"><span class="link-arrow">&gt;</span> Personal Development</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="footer-col footer-newsletter">
+          <h4>Subscribe to Our Newsletter</h4>
+          <p>Get the latest updates, course alerts and more.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); handleNewsletterSubmit(this);">
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit" class="newsletter-btn" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Copyright Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 EduNext. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="404.html">Privacy Policy</a>
+          <a href="404.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var nameInput = document.getElementById('contact-name');
+      if (nameInput) {
+        nameInput.addEventListener('input', function () {
+          var cleaned = this.value.replace(/[0-9]/g, '');
+          if (cleaned !== this.value) this.value = cleaned;
+        });
+      }
+    })();
+
+    function handleContactSubmit(form) {
+      var fields = form.querySelectorAll('input, textarea');
+      for (var i = 0; i < fields.length; i++) {
+        if (!fields[i].value.trim()) {
+          alert('Please fill in all fields.');
+          return;
+        }
+      }
+      var name = form.querySelector('#contact-name').value.trim();
+      if (!/^[a-zA-Z][a-zA-Z\s.'-]*$/.test(name)) {
+        alert('Name must be alphabetic, numbers are not allowed.');
+        return;
+      }
+      var email = form.querySelector('#contact-email').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      window.location.href = '404.html';
+    }
+
+    function handleNewsletterSubmit(form) {
+      var email = form.querySelector('input').value.trim();
+      if (/^[^\s@]+@[^\s@]+\.com$/i.test(email)) {
+        window.location.href = '404.html';
+      } else {
+        alert('Please enter a valid email address ending with .com');
+      }
+    }
+
+    (function () {
+      var nav = document.querySelector('.navbar');
+      var toggle = document.querySelector('.navbar__toggle');
+      if (!nav || !toggle) return;
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = nav.classList.toggle('menu-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.documentElement.classList.toggle('menu-locked', open);
+        if (open) {
+          var menuEl = nav.querySelector('.navbar__menu');
+          if (menuEl) menuEl.scrollTop = 0;
+        }
+      });
+      var closeMenu = function () {
+        nav.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.documentElement.classList.remove('menu-locked');
+      };
+      document.addEventListener('click', function (e) {
+        if (!nav.contains(e.target)) closeMenu();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+      var menuPanel = nav.querySelector('.navbar__menu');
+      if (menuPanel) {
+        menuPanel.addEventListener('click', function (e) {
+          if (e.target === menuPanel) closeMenu();
+        });
+        var menuLinks = menuPanel.querySelectorAll('a');
+        for (var mi = 0; mi < menuLinks.length; mi++) {
+          menuLinks[mi].addEventListener('click', closeMenu);
+        }
+      }
+    })();
+  </script>
+<script>
+(function () {
+  'use strict';
+
+  var docEl = document.documentElement;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var HERO_SEL = '.hero__content, .blog-hero__content, .contact-hero__content, .instructor-hero__content, .services-hero__content, .login-card, .signup-card';
+  var UNIT_SEL = '.offer-banner, .blog-newsletter-banner, .about-cta-container, .services-cta-container, .story-top-grid, .companies-grid, .contact-faq-grid, .contact-features-row, .contact-form-grid';
+  var ITEM_SEL = '[class$="-header"], [class$="-heading"], [class$="-subheading"], [class$="-title"], [class$="-subtitle"], [class$="-desc"], [class$="-tagline"], [class$="-tag"], [class$="-text"], [class$="-card"], [class$="-item"], [class$="-btn"], .resource-card, .offer-headline, .offer-subtext, .offer-countdown, .form-row, .contact-title';
+  var IMG_SEL = '.hero__image img, .blog-hero__image img, .contact-hero__image img, .instructor-hero__image img, .services-hero__image img, .story-image-wrap img, .smart-features-image-wrap img, .why-about-image-wrap img, .offer-student-image, .course-card__thumb, .instructor-card__thumb, .team-card__image, .blog-post-thumb';
+  var PAR_SEL = '.hero__image, .blog-hero__image, .contact-hero__image, .instructor-hero__image, .services-hero__image, .story-image-wrap, .smart-features-image-wrap, .why-about-image-wrap, .offer-floating-badge';
+
+  var SKIP = '.psr-hero, .psr-anim, .footer, nav, header';
+  var IMG_SKIP = '.psr-hero, .footer, nav, header';
+
+  function toArray(list) {
+    return Array.prototype.slice.call(list);
+  }
+
+  function hasRunningAnim(el) {
+    try {
+      return getComputedStyle(el).animationName !== 'none';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* ---------- 1. hero / auth-card load-in ---------- */
+  toArray(document.querySelectorAll(HERO_SEL)).forEach(function (hero) {
+    if (hero.closest(SKIP)) return;
+    hero.classList.add('psr-hero', 'psr-hide');
+    var kids = hero.children;
+    for (var i = 0; i < kids.length; i++) {
+      kids[i].style.transitionDelay = Math.min(i, 6) * 80 + 'ms';
+    }
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        hero.classList.remove('psr-hide');
+      });
+    });
+    setTimeout(function () {
+      hero.classList.remove('psr-hero');
+      for (var i = 0; i < kids.length; i++) kids[i].style.transitionDelay = '';
+    }, 80 * Math.min(kids.length - 1, 6) + 1000);
+  });
+
+  /* ---------- 2. mark scroll reveals ---------- */
+  var toObserve = [];
+
+  function mark(el, img) {
+    el.classList.add('psr-anim');
+    if (img) el.classList.add('psr-img');
+    el.classList.add('psr-hide');
+    toObserve.push(el);
+  }
+
+  function markAll(sel, img) {
+    toArray(document.querySelectorAll(sel)).forEach(function (el) {
+      if (el.closest(img ? IMG_SKIP : SKIP)) return;
+      if (!img && hasRunningAnim(el)) return;
+      mark(el, img);
+    });
+  }
+
+  markAll(UNIT_SEL, false);
+  markAll(ITEM_SEL, false);
+  markAll(IMG_SEL, true);
+
+
+  /* ---------- 3. reveal on scroll (stagger per batch + parent) ---------- */
+  var seq = 0;
+  if (toObserve.length) {
+  var io = new IntersectionObserver(function (entries) {
+    var live = [];
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      live.push(e);
+    });
+    var groups = {};
+    live.forEach(function (e) {
+      var p = e.target.parentElement;
+      if (p) {
+        if (!p.__psrKey) p.__psrKey = 'g' + (++seq);
+        (groups[p.__psrKey] = groups[p.__psrKey] || []).push(e);
+      } else {
+        reveal(e.target, 0);
+      }
+    });
+    Object.keys(groups).forEach(function (k) {
+      var g = groups[k];
+      g.sort(function (a, b) {
+        return (a.boundingClientRect.top - b.boundingClientRect.top) ||
+               (a.boundingClientRect.left - b.boundingClientRect.left);
+      });
+      g.forEach(function (e, i) {
+        reveal(e.target, Math.min(i, 6) * 65);
+      });
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+
+  function reveal(el, delay) {
+    if (delay) el.style.transitionDelay = delay + 'ms';
+    el.classList.remove('psr-hide');
+    setTimeout(function () {
+      el.classList.remove('psr-anim');
+      el.style.transitionDelay = '';
+    }, (el.classList.contains('psr-img') ? 1250 : 850) + delay);
+  }
+
+  toObserve.forEach(function (el) { io.observe(el); });
+
+  /* safety net: never leave on-screen content hidden */
+  setTimeout(function () {
+    toArray(document.querySelectorAll('.psr-hide')).forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        io.unobserve(el);
+        reveal(el, 0);
+      }
+    });
+  }, 4000);
+  }
+
+  /* ---------- 4. subtle parallax ---------- */
+  var parEls = toArray(document.querySelectorAll(PAR_SEL));
+  parEls.forEach(function (el) { el.classList.add('psr-par'); });
+
+  var lastScroll = -1;
+  var ticking = false;
+
+  function requestTick() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(frame);
+    }
+  }
+
+  function updateParallax() {
+    var vh = window.innerHeight;
+    for (var i = 0; i < parEls.length; i++) {
+      var el = parEls[i];
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > vh + 80) continue;
+      var p = (r.top + r.height / 2 - vh / 2) / vh;
+      if (p > 1) p = 1; else if (p < -1) p = -1;
+      var range = el.classList.contains('offer-floating-badge') ? 16 : 26;
+      el.style.transform = 'translate3d(0,' + (-p * range).toFixed(1) + 'px,0)';
+    }
+  }
+
+  /* ---------- 5. smooth wheel scrolling ---------- */
+  var smoothOn = !!(window.matchMedia && window.matchMedia('(pointer: fine)').matches);
+  var sTarget = window.pageYOffset;
+  var sCurrent = sTarget;
+
+  function maxScroll() {
+    return Math.max(0, docEl.scrollHeight - window.innerHeight);
+  }
+
+  function scrollToY(y) {
+    docEl.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    docEl.style.scrollBehavior = '';
+  }
+
+  function stepSmooth() {
+    var diff = sTarget - sCurrent;
+    if (Math.abs(diff) < 0.4) {
+      if (diff !== 0) {
+        sCurrent = sTarget;
+        scrollToY(sCurrent);
+      }
+      return false;
+    }
+    sCurrent += diff * 0.18;
+    if (sCurrent < 0) sCurrent = 0;
+    else if (sCurrent > maxScroll()) sCurrent = maxScroll();
+    scrollToY(sCurrent);
+    return true;
+  }
+
+  function frame() {
+    ticking = false;
+    var y = window.pageYOffset;
+    if (y !== lastScroll) {
+      lastScroll = y;
+      updateParallax();
+    }
+    if (smoothOn && stepSmooth()) requestTick();
+  }
+
+  if (smoothOn) {
+    window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.defaultPrevented || !e.deltaY) return;
+      if (docEl.classList.contains('menu-locked')) return;
+      e.preventDefault();
+      var d = e.deltaY;
+      if (e.deltaMode === 1) d *= 16;
+      else if (e.deltaMode === 2) d *= window.innerHeight;
+      sTarget = Math.min(Math.max(sTarget + d, 0), maxScroll());
+      requestTick();
+    }, { passive: false });
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!(smoothOn && Math.abs(sTarget - sCurrent) > 0.5)) {
+      if (Math.abs(window.pageYOffset - sCurrent) > 2) {
+        sTarget = sCurrent = window.pageYOffset;
+      }
+    }
+    requestTick();
+  }, { passive: true });
+
+  window.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowUp' || k === 'ArrowDown' || k === 'PageUp' || k === 'PageDown' ||
+        k === 'Home' || k === 'End' || k === ' ') {
+      sTarget = sCurrent = window.pageYOffset;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', function () {
+    sTarget = sCurrent = window.pageYOffset;
+    lastScroll = -1;
+    requestTick();
+  });
+
+  updateParallax();
+})();
+</script>
+</body>
+</html>
